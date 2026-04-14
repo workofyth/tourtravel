@@ -57,4 +57,23 @@ function Button({
   )
 }
 
-export { Button, buttonVariants }
+function ButtonLink({
+  className,
+  variant = "default",
+  size = "default",
+  href,
+  children,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & VariantProps<typeof buttonVariants> & { href: string }) {
+  return (
+    <a
+      href={href}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </a>
+  )
+}
+
+export { Button, buttonVariants, ButtonLink }
