@@ -35,21 +35,18 @@ export default function WhyUsPage() {
     <div className="flex flex-col">
       {/* Hero Section for Why Us */}
       <section className="relative py-24 bg-[#001C44] text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src="https://images.unsplash.com/photo-1596422846543-75c6fc15a51c?auto=format&fit=crop&q=80"
-            alt="Malaysia Background"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#001C44] to-transparent" />
-        </div>
+        {/* Background with overlay to match HeroSection */}
+        <div
+          className="absolute inset-0 bg-cover bg-center z-0"
+          style={{ backgroundImage: "url('/BANNER.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/50 z-10" />
         
-        <div className="container relative z-10 px-4 md:px-6 mx-auto text-center">
+        <div className="container relative z-20 px-4 md:px-6 mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
             Why Travel With <span className="text-[#B8860B]">Hola Amigos</span>?
           </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
             Discover why thousands of travelers trust us to handle their Malaysian adventures for over two decades.
           </p>
         </div>

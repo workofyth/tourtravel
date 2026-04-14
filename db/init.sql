@@ -1,4 +1,4 @@
-CREATE TABLE destinations (
+CREATE TABLE IF NOT EXISTS destinations (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name        text NOT NULL,
   slug        text UNIQUE NOT NULL,
@@ -6,8 +6,7 @@ CREATE TABLE destinations (
   description text,
   created_at  timestamptz DEFAULT now()
 );
-
-CREATE TABLE packages (
+CREATE TABLE IF NOT EXISTS packages (
   id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   destination_id uuid REFERENCES destinations(id),
   title          text NOT NULL,
@@ -20,7 +19,7 @@ CREATE TABLE packages (
   created_at     timestamptz DEFAULT now()
 );
 
-CREATE TABLE bookings (
+CREATE TABLE IF NOT EXISTS bookings (
   id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   package_id   uuid REFERENCES packages(id) ON DELETE CASCADE,
   name         text NOT NULL,
@@ -33,7 +32,7 @@ CREATE TABLE bookings (
   created_at   timestamptz DEFAULT now()
 );
 
-CREATE TABLE itineraries (
+CREATE TABLE IF NOT EXISTS itineraries (
   id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   package_id   uuid REFERENCES packages(id) ON DELETE CASCADE,
   day_number   int NOT NULL,
@@ -42,22 +41,13 @@ CREATE TABLE itineraries (
   created_at   timestamptz DEFAULT now()
 );
 
-CREATE TABLE package_images (
+CREATE TABLE IF NOT EXISTS package_images (
   id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   package_id   uuid REFERENCES packages(id) ON DELETE CASCADE,
   image_url    text NOT NULL,
   sort_order   int DEFAULT 0,
   created_at   timestamptz DEFAULT now()
 );
-
--- Seed Data
-INSERT INTO destinations (id, name, slug, category, description) VALUES
-('11111111-1111-1111-1111-111111111111', 'Bali', 'bali', 'pantai', 'Pulau Dewata dengan keindahan pantai dan budaya alamnya.'),
-('22222222-2222-2222-2222-222222222222', 'Yogyakarta', 'yogyakarta', 'budaya', 'Pusat kebudayaan Jawa dengan candi-candi megah dan tradisi yang kental.');
-
-INSERT INTO packages (id, destination_id, title, slug, price, duration_days, description, cover_image, is_featured) VALUES
-('33333333-3333-3333-3333-333333333333', '11111111-1111-1111-1111-111111111111', 'Eksplorasi Bali Selatan', 'eksplorasi-bali-selatan', 2500000, 4, 'Nikmati keindahan pantai-pantai eksotis di Bali Selatan seperti Pandawa, Melasti, dan Uluwatu.', 'bali-selatan.jpg', true),
-('44444444-4444-4444-4444-444444444444', '22222222-2222-2222-2222-222222222222', 'Jejak Candi & Keraton Jogja', 'jejak-candi-keraton-jogja', 1800000, 3, 'Kunjungi Candi Borobudur, Prambanan, dan Keraton Yogyakarta dalam satu paket wisata tak terlupakan.', 'jogja-candi.jpg', true);
 
 CREATE TABLE IF NOT EXISTS site_settings (
   id int PRIMARY KEY DEFAULT 1,
@@ -83,8 +73,4 @@ CREATE TABLE IF NOT EXISTS testimonials (
   is_active boolean DEFAULT true,
   created_at timestamptz DEFAULT now()
 );
-
-INSERT INTO site_settings (id, site_name) 
-VALUES (1, 'Tour & Travel') 
-ON CONFLICT (id) DO NOTHING;
 
