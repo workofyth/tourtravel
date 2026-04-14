@@ -83,7 +83,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Explore Malaysia – Truly Asia with Hola Amigos<br className="hidden md:block" /> 
+          Explore Malaysia – Truly Asia with Hola Amigos<br className="hidden md:block" />
         </motion.h1>
 
         <motion.p
@@ -92,8 +92,8 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          iscover you dream holiday in Malaysia
-with Hola Amigos as your trusted travel partner.
+          Discover you dream holiday in Malaysia
+          with Hola Amigos as your trusted travel partner.
         </motion.p>
 
         <motion.div
