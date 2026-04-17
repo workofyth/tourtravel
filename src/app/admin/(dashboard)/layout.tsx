@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MapPin, Package, CalendarDays, LogOut, LayoutDashboard, LocateFixed, Settings, MessageSquareQuote, Image as ImageIcon } from "lucide-react";
+import { MapPin, Package, CalendarDays, LogOut, LayoutDashboard, LocateFixed, Settings, MessageSquareQuote, Image as ImageIcon, Car } from "lucide-react";
 
 export default function AdminLayout({
   children,
@@ -33,6 +33,10 @@ export default function AdminLayout({
           <Link href="/admin/bookings" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted text-sm font-medium transition-colors">
             <CalendarDays className="h-4 w-4" />
             Bookings
+          </Link>
+          <Link href="/admin/transportations" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted text-sm font-medium transition-colors">
+            <Car className="h-4 w-4" />
+            Transportations
           </Link>
           <Link href="/admin/gallery" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted text-sm font-medium transition-colors">
             <ImageIcon className="h-4 w-4" />

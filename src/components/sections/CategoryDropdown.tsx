@@ -52,6 +52,13 @@ export function CategoryDropdown({ categories }: CategoryDropdownProps) {
                   {category.name}
                 </Link>
               ))}
+              <div className="h-px bg-white/10 my-1" />
+              <Link
+                href="/transportation"
+                className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-white/10 text-white font-semibold"
+              >
+                Transportation
+              </Link>
             </div>
           </motion.div>
         )}

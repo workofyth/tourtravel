@@ -85,3 +85,16 @@ export interface Testimonial {
   is_active: boolean;
   created_at: string;
 }
+
+export interface Transportation {
+  id: string;
+  name: string;
+  slug: string;
+  image_url: string;
+  capacity_pax: number;
+  capacity_luggage: number;
+  price_per_day: number;
+  description: string;
+  is_active: boolean;
+  created_at: string;
+}
