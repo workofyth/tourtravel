@@ -33,31 +33,28 @@ export default async function PackagesPage(props: { searchParams: Promise<{ cate
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
-        <aside className="w-full md:w-1/4">
-          <div className="sticky top-24">
-            <FilterForm 
-              categories={categories} 
-              currentCategory={category} 
-              currentMaxPrice={maxPrice} 
-              currentSearch={search}
-            />
-          </div>
-        </aside>
+      <div className="mb-10">
+        <FilterForm 
+          categories={categories} 
+          currentCategory={category} 
+          currentMaxPrice={maxPrice} 
+          currentSearch={search}
+        />
+      </div>
 
-        <main className="w-full md:w-3/4">
-          {packages.length === 0 ? (
-            <div className="text-center py-20 bg-muted/30 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-2">Package Not Found</h3>
-              <p className="text-muted-foreground">
-                Sorry, no packages match your filters. Please try other criteria.
-              </p>
-              <ButtonLink href="/packages" variant="outline" className="mt-6">Reset Filters</ButtonLink>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {packages.map((pkg) => (
-                <Card key={pkg.id} className="overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+      <main className="w-full">
+        {packages.length === 0 ? (
+          <div className="text-center py-20 bg-muted/30 rounded-lg border-2 border-dashed border-muted">
+            <h3 className="text-2xl font-semibold mb-2 text-slate-800">No Packages Found</h3>
+            <p className="text-muted-foreground">
+              Sorry, no packages match your filters. Please try other criteria or reset.
+            </p>
+            <ButtonLink href="/packages" variant="outline" className="mt-8 px-8 py-6 rounded-xl border-primary text-primary hover:bg-primary/5">Reset All Filters</ButtonLink>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {packages.map((pkg) => (
+              <Card key={pkg.id} className="overflow-hidden flex flex-col hover:shadow-2xl transition-all hover:-translate-y-1 border-slate-200 group">
                   <div className="relative h-[200px] w-full bg-muted">
                     <Image
                       src={`/uploads/packages/${pkg.cover_image}`}
@@ -126,9 +123,8 @@ export default async function PackagesPage(props: { searchParams: Promise<{ cate
                 </Card>
               ))}
             </div>
-          )}
-        </main>
-      </div>
+        )}
+      </main>
 
       {/* Customize Your Own Tour Package Section */}
       <div className="mt-20 p-8 md:p-12 bg-slate-50 rounded-3xl border border-slate-200 shadow-sm overflow-hidden relative group">

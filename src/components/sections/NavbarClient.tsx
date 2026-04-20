@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
-import { MapPin, Menu, X, ChevronRight, MoreHorizontal, MessageCircle, Info, Car } from "lucide-react";
+import { MapPin, Menu, X, ChevronRight, MoreHorizontal, MessageCircle, Info, Car, Route } from "lucide-react";
 import { CategoryDropdown } from "./CategoryDropdown";
 import { Category } from "@/types";
 import { motion, AnimatePresence } from "framer-motion";
@@ -74,24 +74,37 @@ export function NavbarClient({ settings, categories }: NavbarClientProps) {
             
             <Link href="/packages" className="flex flex-col items-center gap-1 group">
                 <div className="p-2 rounded-full group-active:scale-95 transition-transform">
-                    <Menu className="h-6 w-6 text-white" />
+                    <Route className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-widest opacity-70">Tours</span>
             </Link>
 
             {/* Floating Center Action Button with Bubble */}
             <div className="relative -translate-y-8">
-                {/* Chat Bubble */}
+                {/* Chat Bubble with Continuous Floating Animation */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-max"
+                    animate={{ 
+                        opacity: 1, 
+                        y: [0, -8, 0], // Floating motion
+                        scale: 1 
+                    }}
+                    transition={{
+                        y: {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        },
+                        opacity: { duration: 0.4 },
+                        scale: { duration: 0.4 }
+                    }}
+                    className="absolute bottom-full left-1/2 -translate-x-1/2 mb-5 w-max"
                 >
-                    <div className="bg-white text-[#001C44] px-4 py-2 rounded-2xl shadow-2xl border border-white/10 relative">
-                        <p className="text-[10px] font-black uppercase tracking-tighter leading-none mb-1 text-blue-600">Call Our Team Now</p>
-                        <p className="text-xs font-bold tabular-nums">+{settings?.whatsapp?.replace(/\D/g, '') || "60195852877"}</p>
+                    <div className="bg-[#001C44] text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/20 relative">
+                        <p className="text-[11px] font-black uppercase tracking-widest leading-none mb-1.5 text-[#90CAF9]">Call Our Team Now</p>
+                        <p className="text-sm font-bold tabular-nums">+{settings?.whatsapp?.replace(/\D/g, '') || "60195852877"}</p>
                         {/* Bubble Triangle */}
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-white"></div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[#001C44]"></div>
                     </div>
                 </motion.div>
 
@@ -99,7 +112,7 @@ export function NavbarClient({ settings, categories }: NavbarClientProps) {
                     href={`https://wa.me/${settings?.whatsapp?.replace(/\D/g, '') || "60195852877"}`}
                     className="flex flex-col items-center"
                 >
-                    <div className="bg-[#25D366] p-3 rounded-full shadow-lg shadow-green-500/30 active:scale-90 transition-transform flex items-center justify-center w-16 h-16">
+                    <div className="bg-[#25D366] p-3 rounded-full shadow-lg shadow-green-500/30 active:scale-90 transition-transform flex items-center justify-center w-16 h-16 border-2 border-white/20">
                         <img 
                             src="/wa-logo.png" 
                             alt="WhatsApp" 
