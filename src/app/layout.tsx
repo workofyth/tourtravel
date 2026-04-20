@@ -33,9 +33,9 @@ export default async function RootLayout({
         <Footer />
         <Toaster />
 
-        {/* Floating WA button */}
+        {/* Floating WA button (Desktop Only) */}
         {settings?.whatsapp && (
-          <div className="fixed bottom-6 right-6 z-50">
+          <div className="fixed bottom-6 right-6 z-50 hidden md:block">
             <a
               href={`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent("Hi, I want to consult...")}`}
               target="_blank"
@@ -58,6 +58,7 @@ export default async function RootLayout({
             </a>
           </div>
         )}
+
       </body>
     </html>
   );

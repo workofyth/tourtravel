@@ -149,15 +149,21 @@ export default async function TransportationPage() {
                        </div>
                     </td>
                     <td className="px-8 py-8">
-                      <div className="flex flex-col">
-                        <div className="flex items-baseline gap-2">
-                            <span className="text-2xl font-black text-white">RM {tier.rm}</span>
-                            <span className="text-slate-500 text-sm font-medium">/ person</span>
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center gap-3">
+                            <span className="text-3xl font-black text-white tabular-nums leading-none tracking-tight">RM {tier.rm}</span>
+                            <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest bg-slate-700/50 px-2 py-1 rounded">per pax</span>
                         </div>
-                        <div className="flex gap-4 mt-1 text-slate-400 text-sm font-medium">
-                          <span>€ {tier.eur}</span>
-                          <span>•</span>
-                          <span>USD {tier.usd}</span>
+                        <div className="flex items-center gap-4 text-slate-400 font-medium">
+                          <span className="flex items-center gap-1.5 min-w-[70px]">
+                            <span className="text-[9px] text-slate-500 font-black uppercase tracking-tighter">EUR</span> 
+                            <span className="text-base tabular-nums">€{tier.eur}</span>
+                          </span>
+                          <span className="text-slate-700 font-light">|</span>
+                          <span className="flex items-center gap-1.5">
+                            <span className="text-[9px] text-slate-500 font-black uppercase tracking-tighter">USD</span> 
+                            <span className="text-base tabular-nums">${tier.usd}</span>
+                          </span>
                         </div>
                       </div>
                     </td>
