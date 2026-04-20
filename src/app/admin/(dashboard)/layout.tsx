@@ -34,10 +34,6 @@ export default function AdminLayout({
             <CalendarDays className="h-4 w-4" />
             Bookings
           </Link>
-          <Link href="/admin/transportations" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted text-sm font-medium transition-colors">
-            <Car className="h-4 w-4" />
-            Transportations
-          </Link>
           <Link href="/admin/gallery" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted text-sm font-medium transition-colors">
             <ImageIcon className="h-4 w-4" />
             Gallery
