@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Roboto, Roboto_Slab } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
@@ -7,7 +7,9 @@ import { Toaster } from '@/components/ui/sonner';
 import { getSiteSettings } from '@/lib/queries/settings';
 import Image from 'next/image';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700', '900'], variable: '--font-roboto' });
+const robotoSlab = Roboto_Slab({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-roboto-slab' });
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
@@ -27,7 +29,7 @@ export default async function RootLayout({
 
   return (
     <html lang="id">
-      <body className={`${inter.className} min-h-screen flex flex-col antialiased`}>
+      <body className={`${inter.variable} ${roboto.variable} ${robotoSlab.variable} font-sans min-h-screen flex flex-col antialiased`}>
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
