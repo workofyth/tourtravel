@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ImagePlus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { DeleteGalleryButton } from "./DeleteGalleryButton";
+import { getImageUrl } from "@/lib/utils";
 
 export default async function AdminGalleryPage() {
   const galleryItems = await getAllGalleryItems();
@@ -44,7 +45,7 @@ export default async function AdminGalleryPage() {
                     <TableCell>
                       <div className="relative h-16 w-16 overflow-hidden rounded-md border">
                         <Image
-                          src={`/uploads/gallery/${item.image_url}`}
+                          src={getImageUrl(item.image_url, 'gallery' as any)}
                           alt={item.title || "Gallery Item"}
                           fill
                           className="object-cover"

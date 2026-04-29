@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { GalleryItem } from "@/lib/queries/gallery";
 import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
+import { getImageUrl } from "@/lib/utils";
 
 interface GalleryListProps {
   images: GalleryItem[];
@@ -30,7 +31,7 @@ export function GalleryList({ images }: GalleryListProps) {
             onClick={() => handleImageClick(index)}
           >
             <Image
-              src={`/uploads/gallery/${item.image_url}`}
+              src={getImageUrl(item.image_url, 'gallery' as any)}
               alt={item.title || "Gallery Image"}
               width={500}
               height={500}

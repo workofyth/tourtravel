@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import DeleteTransportationButton from "./DeleteTransportationButton";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 
 export default async function TransportationsPage() {
   const transportations = await getAllTransportations();
@@ -50,7 +51,7 @@ export default async function TransportationsPage() {
                   <TableCell>
                     <div className="relative h-12 w-12 rounded-md overflow-hidden bg-muted">
                         <Image 
-                            src={t.image_url.startsWith('http') ? t.image_url : `/uploads/transportations/${t.image_url}`}
+                            src={getImageUrl(t.image_url, 'transportations')}
                             alt={t.name}
                             fill
                             className="object-cover"

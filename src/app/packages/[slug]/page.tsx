@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock } from "lucide-react";
 import BookingForm from "@/app/packages/[slug]/BookingForm";
 import PackageCarousel from "@/components/ui/PackageCarousel";
+import { getImageUrl } from "@/lib/utils";
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
@@ -17,7 +18,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     title: `${pkg.title} | TourPlatform`,
     description: stripHtml(pkg.description).slice(0, 160),
     openGraph: {
-      images: [`/uploads/packages/${pkg.cover_image}`],
+      images: [getImageUrl(pkg.cover_image, 'packages')],
     },
   };
 }

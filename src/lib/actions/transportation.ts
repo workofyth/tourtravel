@@ -3,11 +3,8 @@
 import { pool } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import fs from "fs/promises";
-import path from "path";
 import sharp from "sharp";
-
-const UPLOAD_DIR = path.join(process.cwd(), "public/uploads/transportations");
+import { put } from "@vercel/blob";
 
 const transportationSchema = z.object({
   name: z.string().min(3, "Nama minimal 3 karakter"),
@@ -27,18 +24,16 @@ async function processImage(file: File): Promise<string> {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  // Ensure upload dir exists
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-
-  const filename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
-  const filePath = path.join(UPLOAD_DIR, filename);
-
   // Resize to max 1080p (width or height)
-  await sharp(buffer)
+  const resizedBuffer = await sharp(buffer)
     .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
-    .toFile(filePath);
+    .toBuffer();
 
-  return filename;
+  const { url } = await put(`transportations/${Date.now()}-${file.name.replace(/\s+/g, "-")}`, resizedBuffer, {
+    access: 'public',
+  });
+
+  return url;
 }
 
 export async function createTransportation(formData: FormData) {

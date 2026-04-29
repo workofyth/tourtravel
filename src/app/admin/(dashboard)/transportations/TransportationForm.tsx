@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { Transportation } from "@/types";
+import { getImageUrl } from "@/lib/utils";
 
 const transportationFormSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters."),
@@ -59,7 +60,7 @@ export default function TransportationForm({
   });
 
   const [previewImage, setPreviewImage] = useState<string | null>(
-    initialData?.image_url ? (initialData.image_url.startsWith('http') ? initialData.image_url : `/uploads/transportations/${initialData.image_url}`) : null
+    getImageUrl(initialData?.image_url, 'transportations')
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

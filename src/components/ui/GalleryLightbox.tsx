@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { GalleryItem } from "@/lib/queries/gallery";
+import { getImageUrl } from "@/lib/utils";
 
 interface GalleryLightboxProps {
   images: GalleryItem[];
@@ -102,7 +103,7 @@ export function GalleryLightbox({
             className="relative w-full h-full max-h-[80vh]"
           >
             <Image
-              src={`/uploads/gallery/${currentItem.image_url}`}
+              src={getImageUrl(currentItem.image_url, 'gallery' as any)}
               alt={currentItem.title || "Gallery photo"}
               fill
               className="object-contain"

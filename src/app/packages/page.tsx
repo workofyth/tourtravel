@@ -10,6 +10,7 @@ import { Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import FilterForm from "./FilterForm";
 import { getSiteSettings } from "@/lib/queries/settings";
+import { getImageUrl } from "@/lib/utils";
 
 export default async function PackagesPage(props: { searchParams: Promise<{ category?: string; max_price?: string; search?: string }> }) {
   const searchParams = await props.searchParams;
@@ -57,7 +58,7 @@ export default async function PackagesPage(props: { searchParams: Promise<{ cate
               <Card key={pkg.id} className="overflow-hidden flex flex-col hover:shadow-2xl transition-all hover:-translate-y-1 border-slate-200 group">
                   <div className="relative h-[200px] w-full bg-muted">
                     <Image
-                      src={`/uploads/packages/${pkg.cover_image}`}
+                      src={getImageUrl(pkg.cover_image, 'packages')}
                       alt={pkg.title}
                       fill
                       className="object-cover"
