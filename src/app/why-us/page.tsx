@@ -75,10 +75,10 @@ export default function WhyUsPage() {
             </div>
             <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
               <Image 
-                src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80" 
-                alt="Our Bus Transportation" 
+                src="/transportation_2.jpeg" 
+                alt="Our Transport Fleet" 
                 fill 
-                className="object-cover"
+                className="object-cover brightness-50"
               />
             </div>
           </div>
