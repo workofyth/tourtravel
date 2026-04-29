@@ -25,6 +25,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
+import { getImageUrl } from "@/lib/utils";
 
 const packageFormSchema = z.object({
   category_id: z.string().min(1, "Please select a category."),
@@ -261,7 +262,7 @@ export default function PackageForm({
                 {existingImages.map((url, idx) => (
                   <div key={url} className="relative aspect-square rounded-lg overflow-hidden border bg-muted group">
                     <Image
-                      src={`/uploads/packages/${url}`}
+                      src={getImageUrl(url, 'packages')}
                       alt="Preview"
                       fill
                       className="object-cover"

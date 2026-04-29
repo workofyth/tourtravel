@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 interface PackageCarouselProps {
   images: { id: string; image_url: string }[];
@@ -42,7 +43,7 @@ export default function PackageCarousel({ images, title }: PackageCarouselProps)
             className="absolute inset-0"
           >
             <Image
-              src={`/uploads/packages/${images[currentIndex].image_url}`}
+              src={getImageUrl(images[currentIndex].image_url, 'packages')}
               alt={`${title} - image ${currentIndex + 1}`}
               fill
               className="object-cover"
@@ -94,7 +95,7 @@ export default function PackageCarousel({ images, title }: PackageCarouselProps)
               }`}
             >
               <Image
-                src={`/uploads/packages/${img.image_url}`}
+                src={getImageUrl(img.image_url, 'packages')}
                 alt="Thumbnail"
                 fill
                 className="object-cover"

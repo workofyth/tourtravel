@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { PackageWithCategory } from "@/types";
+import { getImageUrl } from "@/lib/utils";
 
 interface HeroSectionProps {
   packages?: PackageWithCategory[];
@@ -33,8 +34,8 @@ export function HeroSection({ packages = [] }: HeroSectionProps) {
   const activeSlides = packages.length > 0 
     ? packages.slice(0, 5).map(pkg => {
         const imageUrl = pkg.cover_image 
-          ? `/uploads/packages/${pkg.cover_image}` 
-          : (pkg.images && pkg.images.length > 0 ? `/uploads/packages/${pkg.images[0].image_url}` : "/BANNER.jpg");
+          ? getImageUrl(pkg.cover_image, 'packages') 
+          : (pkg.images && pkg.images.length > 0 ? getImageUrl(pkg.images[0].image_url, 'packages') : "/BANNER.jpg");
           
         return {
           image: imageUrl,

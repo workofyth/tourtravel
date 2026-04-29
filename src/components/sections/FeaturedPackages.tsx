@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin } from "lucide-react";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 
 export async function FeaturedPackages() {
   const packages = await getFeaturedPackages();
@@ -33,7 +34,7 @@ export async function FeaturedPackages() {
             <Card key={pkg.id} className="overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
               <div className="relative h-[240px] w-full bg-muted">
                 <Image
-                  src={`/uploads/packages/${pkg.cover_image}`}
+                  src={getImageUrl(pkg.cover_image, 'packages')}
                   alt={pkg.title}
                   fill
                   className="object-cover"

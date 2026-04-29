@@ -2,11 +2,8 @@
 
 import { pool } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import fs from "fs/promises";
-import path from "path";
 import sharp from "sharp";
-
-const UPLOAD_DIR = path.join(process.cwd(), "public/uploads/settings");
+import { put } from "@vercel/blob";
 
 async function processImage(file: File): Promise<string> {
   if (file.size > 2 * 1024 * 1024) {
@@ -16,16 +13,15 @@ async function processImage(file: File): Promise<string> {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-
-  const filename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
-  const filePath = path.join(UPLOAD_DIR, filename);
-
-  await sharp(buffer)
+  const resizedBuffer = await sharp(buffer)
     .resize(500, 500, { fit: 'inside', withoutEnlargement: true })
-    .toFile(filePath);
+    .toBuffer();
 
-  return `/uploads/settings/${filename}`;
+  const { url } = await put(`settings/${Date.now()}-${file.name.replace(/\s+/g, "-")}`, resizedBuffer, {
+    access: 'public',
+  });
+
+  return url;
 }
 
 export async function updateSiteSettings(formData: FormData) {

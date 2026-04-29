@@ -6,27 +6,27 @@ import Image from "next/image";
 
 const highlights = [
   {
-    icon: <ShieldCheck className="h-10 w-10 text-[#90CAF9]" />,
+    icon: <ShieldCheck className="h-10 w-10 text-primary" />,
     title: "TRUSTED TRAVEL AGENCY IN MALAYSIA",
     description: "With more than 6 years of experience managing and offering travel packages to Kuala Lumpur, Malacca, and Selangor, Hola Amigos Travel is your most trusted travel agency for an unforgettable journey to Malaysia."
   },
   {
-    icon: <Users className="h-10 w-10 text-[#90CAF9]" />,
+    icon: <Users className="h-10 w-10 text-primary" />,
     title: "ATTRACTIVE TRAVEL PACKAGES FOR EVERYONE",
     description: "Whether you are traveling solo or in groups (corporate, family, or friends), we are your preferred travel agency. We also welcome corporate and government agency clients."
   },
   {
-    icon: <UserCheck className="h-10 w-10 text-[#90CAF9]" />,
+    icon: <UserCheck className="h-10 w-10 text-primary" />,
     title: "EXPERIENCED AND FRIENDLY TOUR GUIDES",
     description: "Enjoy your trip to Malaysia with our experienced local tour guides. Let us guide you to Malaysia’s attractions, historical sites, food stalls, shopping destinations, and much more. Your satisfaction is our priority."
   },
   {
-    icon: <Palmtree className="h-10 w-10 text-[#90CAF9]" />,
+    icon: <Palmtree className="h-10 w-10 text-primary" />,
     title: "CAPTIVATING TRAVEL PACKAGES",
     description: "Choose from our exciting packages tailored to your preferences. From cities to islands to mountains, with plenty of activities to enjoy, we will bring you the very best of Malaysia."
   },
   {
-    icon: <Car className="h-10 w-10 text-[#90CAF9]" />,
+    icon: <Car className="h-10 w-10 text-primary" />,
     title: "RELIABLE CAR RENTAL SERVICES",
     description: "Book your car through our car rental service. You may choose to drive yourself or use our experienced drivers as your travel assistants."
   }
@@ -34,16 +34,16 @@ const highlights = [
 
 export function HighlightsSection() {
   return (
-    <section className="relative py-24 overflow-hidden bg-[#001C44]">
+    <section className="relative py-24 overflow-hidden bg-black">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/BANNER.jpg"
+          src="https://cxsjreqoui7u5viz.public.blob.vercel-storage.com/BG%20why%20travel%20with.jpg.jpeg"
           alt="Background"
           fill
-          className="object-cover opacity-20"
+          className="object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#001C44]/90 via-[#001C44]/80 to-[#001C44]/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
       </div>
 
       <div className="container relative z-10 px-4 md:px-6 mx-auto">
@@ -54,13 +54,13 @@ export function HighlightsSection() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight uppercase font-roboto"
           >
-            Why Travel With <span className="text-[#90CAF9]">Hola Amigos</span>?
+            Why Travel With <span className="text-primary">Hola Amigos</span>?
           </motion.h2>
           <motion.div 
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            className="h-1 w-24 bg-[#90CAF9] mx-auto rounded-full"
+            className="h-1 w-24 bg-primary mx-auto rounded-full"
           />
         </div>
 
@@ -77,7 +77,7 @@ export function HighlightsSection() {
               <div className="mb-2 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-transform hover:scale-110 duration-300">
                 {item.icon}
               </div>
-              <h3 className="text-xl font-black text-[#90CAF9] tracking-tight font-roboto leading-tight">
+              <h3 className="text-xl font-black text-primary tracking-tight font-roboto leading-tight">
                 {item.title}
               </h3>
               <p className="text-white/70 leading-relaxed text-sm md:text-base font-medium">

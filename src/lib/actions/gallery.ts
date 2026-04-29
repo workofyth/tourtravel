@@ -2,11 +2,10 @@
 
 import { pool } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import fs from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 import crypto from "crypto";
 
-const UPLOAD_DIR = path.join(process.cwd(), "public/uploads/gallery");
+// const UPLOAD_DIR = path.join(process.cwd(), "public/uploads/gallery");
 
 export async function createGalleryItem(formData: FormData) {
   try {
@@ -18,20 +17,16 @@ export async function createGalleryItem(formData: FormData) {
       return { success: false, message: "Image is required" };
     }
 
-    // Ensure uploads directory exists
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
-
-    const fileName = `${crypto.randomUUID()}-${image.name}`;
-    const filePath = path.join(UPLOAD_DIR, fileName);
-    const buffer = Buffer.from(await image.arrayBuffer());
-    await fs.writeFile(filePath, buffer);
+    const { url } = await put(`gallery/${crypto.randomUUID()}-${image.name}`, image, {
+      access: 'public',
+    });
 
     const client = await pool.connect();
     try {
       try {
         await client.query(
           "INSERT INTO galleries (title, image_url, sort_order) VALUES ($1, $2, $3)",
-          [title || null, fileName, sort_order]
+          [title || null, url, sort_order]
         );
       } catch (err: any) {
         // If table doesn't exist, create it and retry
@@ -50,7 +45,7 @@ export async function createGalleryItem(formData: FormData) {
           // Retry the insert
           await client.query(
             "INSERT INTO galleries (title, image_url, sort_order) VALUES ($1, $2, $3)",
-            [title || null, fileName, sort_order]
+            [title || null, url, sort_order]
           );
         } else {
           throw err;
@@ -73,18 +68,8 @@ export async function deleteGalleryItem(id: string) {
   try {
     const client = await pool.connect();
     try {
-      // Get filename to delete from disk
-      const result = await client.query("SELECT image_url FROM galleries WHERE id = $1", [id]);
-      const item = result.rows[0];
-      
-      if (item) {
-        const filePath = path.join(UPLOAD_DIR, item.image_url);
-        try {
-          await fs.unlink(filePath);
-        } catch (err) {
-          console.error("Failed to delete local file:", err);
-        }
-      }
+      // Note: We don't delete from Vercel Blob here for simplicity, 
+      // but you could use head() and del() if you have the URL.
 
       await client.query("DELETE FROM galleries WHERE id = $1", [id]);
     } finally {
