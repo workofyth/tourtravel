@@ -61,13 +61,13 @@ export function OurServices() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
             >
               <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
-                <div className="relative h-64 w-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     className={`transition-transform duration-500 group-hover:scale-110 ${
-                      i === 3 ? "object-contain p-4" : "object-cover"
+                      i === 3 ? "object-contain" : "object-cover"
                     }`}
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
