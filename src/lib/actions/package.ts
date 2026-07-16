@@ -11,8 +11,6 @@ const packageSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   slug: z.string().min(3, "Slug must be at least 3 characters"),
   price: z.number().min(0),
-  price_child: z.number().min(0).optional().default(0),
-  price_infant: z.number().min(0).optional().default(0),
   duration_days: z.number().min(1),
   description: z.string().min(10, "Description must be at least 10 characters"),
   is_featured: z.boolean().default(false),
@@ -45,8 +43,6 @@ export async function createPackage(formData: FormData) {
       title: formData.get("title"),
       slug: formData.get("slug"),
       price: Number(formData.get("price")),
-      price_child: Number(formData.get("price_child") || 0),
-      price_infant: Number(formData.get("price_infant") || 0),
       duration_days: Number(formData.get("duration_days")),
       description: formData.get("description"),
       is_featured: formData.get("is_featured") === "true",
@@ -68,16 +64,14 @@ export async function createPackage(formData: FormData) {
     const coverImage = uploadedFilenames[0] || "default.jpg";
 
     const result = await pool.query(
-      `INSERT INTO packages (category_id, title, slug, price, price_child, price_infant, duration_days, description, cover_image, is_featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      `INSERT INTO packages (category_id, title, slug, price, duration_days, description, cover_image, is_featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING id`,
       [
         validatedData.category_id,
         validatedData.title,
         validatedData.slug,
         validatedData.price,
-        validatedData.price_child,
-        validatedData.price_infant,
         validatedData.duration_days,
         validatedData.description,
         coverImage,
@@ -125,8 +119,6 @@ export async function updatePackage(id: string, formData: FormData) {
       title: formData.get("title"),
       slug: formData.get("slug"),
       price: Number(formData.get("price")),
-      price_child: Number(formData.get("price_child") || 0),
-      price_infant: Number(formData.get("price_infant") || 0),
       duration_days: Number(formData.get("duration_days")),
       description: formData.get("description"),
       is_featured: formData.get("is_featured") === "true",
@@ -154,15 +146,13 @@ export async function updatePackage(id: string, formData: FormData) {
 
     await pool.query(
       `UPDATE packages 
-       SET category_id = $1, title = $2, slug = $3, price = $4, price_child = $5, price_infant = $6, duration_days = $7, description = $8, is_featured = $9, cover_image = $10
-       WHERE id = $11`,
+       SET category_id = $1, title = $2, slug = $3, price = $4, duration_days = $5, description = $6, is_featured = $7, cover_image = $8
+       WHERE id = $9`,
       [
         validatedData.category_id,
         validatedData.title,
         validatedData.slug,
         validatedData.price,
-        validatedData.price_child,
-        validatedData.price_infant,
         validatedData.duration_days,
         validatedData.description,
         validatedData.is_featured,

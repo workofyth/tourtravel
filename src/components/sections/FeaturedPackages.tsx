@@ -30,13 +30,14 @@ export async function FeaturedPackages() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg) => (
+          {packages.map((pkg, idx) => (
             <Card key={pkg.id} className="overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
               <div className="relative h-[240px] w-full bg-muted">
                 <Image
                   src={getImageUrl(pkg.cover_image, 'packages')}
                   alt={pkg.title}
                   fill
+                  priority={idx === 0}
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
@@ -94,16 +95,7 @@ export async function FeaturedPackages() {
               <CardFooter className="flex items-center justify-between border-t border-muted pt-6 mt-auto">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Starting from</p>
-                  <div className="flex flex-col">
-                    <p className="text-xl font-bold text-primary leading-none">
-                      RM {Number(pkg.price)} <span className="text-xs font-normal text-muted-foreground">{pkg.price_child > 0 ? '(Adult)' : ''}</span>
-                    </p>
-                    {pkg.price_child > 0 && (pkg.category_type === 'daytrip' || pkg.category_type === 'staycation') && (
-                      <p className="text-sm font-semibold text-muted-foreground mt-1">
-                        RM {Number(pkg.price_child)} <span className="text-xs font-normal">(Child)</span>
-                      </p>
-                    )}
-                  </div>
+                  <p className="text-xl font-bold text-primary leading-none">RM {Number(pkg.price)}</p>
                 </div>
                 <ButtonLink href={`/packages/${pkg.slug}`}>Details</ButtonLink>
               </CardFooter>

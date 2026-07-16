@@ -115,7 +115,6 @@ export default async function PackageDetailPage(props: { params: Promise<{ slug:
               packageId={pkg.id} 
               title={pkg.title} 
               price={pkg.price} 
-              category_type={pkg.category_type} 
             />
           </div>
         </div>

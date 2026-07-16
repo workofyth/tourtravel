@@ -108,16 +108,7 @@ export default async function PackagesPage(props: { searchParams: Promise<{ cate
                   <CardFooter className="flex items-center justify-between border-t border-muted p-4 mt-4">
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">Starting from</p>
-                      <div className="flex flex-col">
-                        <p className="text-lg font-bold text-primary">
-                          RM {Number(pkg.price)} <span className="text-[10px] font-normal text-muted-foreground">{pkg.price_child > 0 ? '(Adult)' : ''}</span>
-                        </p>
-                        {pkg.price_child > 0 && (pkg.category_type === 'daytrip' || pkg.category_type === 'staycation') && (
-                          <p className="text-xs font-semibold text-muted-foreground">
-                            RM {Number(pkg.price_child)} <span className="text-[10px] font-normal">(Child)</span>
-                          </p>
-                        )}
-                      </div>
+                      <p className="text-lg font-bold text-primary">RM {Number(pkg.price)}</p>
                     </div>
                     <ButtonLink href={`/packages/${pkg.slug}`} size="sm">Details</ButtonLink>
                   </CardFooter>

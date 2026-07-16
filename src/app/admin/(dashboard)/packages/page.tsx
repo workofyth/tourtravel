@@ -58,13 +58,7 @@ export default async function PackagesAdminPage() {
                       <TableCell className="capitalize">{pkg.category_name}</TableCell>
                       <TableCell>{pkg.duration_days} Days</TableCell>
                       <TableCell>
-                        <div className="font-semibold text-xs text-primary">RM {Number(pkg.price)} (12+)</div>
-                        {pkg.price_child > 0 && (
-                          <div className="text-[10px] text-muted-foreground">RM {Number(pkg.price_child)} (4-11)</div>
-                        )}
-                        {pkg.price_infant > 0 && (
-                          <div className="text-[10px] text-muted-foreground">RM {Number(pkg.price_infant)} (3-)</div>
-                        )}
+                        <div className="font-semibold text-xs text-primary">RM {Number(pkg.price)}</div>
                       </TableCell>
                       <TableCell>
                         {pkg.is_featured ? (

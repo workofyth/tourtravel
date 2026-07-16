@@ -13,8 +13,6 @@ export interface Package {
   title: string;
   slug: string;
   price: number;
-  price_child: number;
-  price_infant: number;
   duration_days: number;
   description: string;
   cover_image: string;
@@ -54,8 +52,6 @@ export interface Booking {
   phone: string;
   travel_date: string;
   pax: number;
-  pax_child: number;
-  pax_infant: number;
   notes: string;
   status: string;
   created_at: string;

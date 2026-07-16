@@ -10,8 +10,6 @@ const bookingSchema = z.object({
   phone: z.string().min(10, "Phone number required"),
   travel_date: z.string(),
   pax: z.number().min(1, "At least 1 pax"),
-  pax_child: z.number().min(0),
-  pax_infant: z.number().min(0),
   notes: z.string().optional(),
 });
 
@@ -26,8 +24,6 @@ export async function createBooking(prevState: any, formData: FormData) {
       phone: formData.get("phone") as string,
       travel_date: formData.get("travel_date") as string,
       pax: Number(formData.get("pax")),
-      pax_child: Number(formData.get("pax_child") || 0),
-      pax_infant: Number(formData.get("pax_infant") || 0),
       notes: formData.get("notes") as string,
     };
 
@@ -36,8 +32,8 @@ export async function createBooking(prevState: any, formData: FormData) {
     const client = await pool.connect();
     try {
       await client.query(
-        `INSERT INTO bookings (package_id, name, email, phone, travel_date, pax, pax_child, pax_infant, notes)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        `INSERT INTO bookings (package_id, name, email, phone, travel_date, pax, notes)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [
           validatedData.package_id,
           validatedData.name,
@@ -45,8 +41,6 @@ export async function createBooking(prevState: any, formData: FormData) {
           validatedData.phone,
           validatedData.travel_date,
           validatedData.pax,
-          validatedData.pax_child,
-          validatedData.pax_infant,
           validatedData.notes,
         ]
       );
