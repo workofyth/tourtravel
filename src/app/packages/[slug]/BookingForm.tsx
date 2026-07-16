@@ -27,14 +27,12 @@ const formSchema = z.object({
   phone: z.string().min(10, { message: "Phone number must be at least 10 digits." }),
   travel_date: z.string().min(1, { message: "Travel date is required." }),
   pax: z.number().min(1, { message: "Minimum 1 person." }),
-  pax_child: z.number().min(0),
-  pax_infant: z.number().min(0),
   notes: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function BookingForm({ packageId, title, price, category_type }: { packageId: string; title: string; price: number; category_type?: string }) {
+export default function BookingForm({ packageId, title, price }: { packageId: string; title: string; price: number }) {
   const [isPending, setIsPending] = useState(false);
 
   const form = useForm<FormValues>({
@@ -45,8 +43,6 @@ export default function BookingForm({ packageId, title, price, category_type }: 
       phone: "",
       travel_date: "",
       pax: 1,
-      pax_child: 0,
-      pax_infant: 0,
       notes: "",
     },
   });
@@ -60,8 +56,6 @@ export default function BookingForm({ packageId, title, price, category_type }: 
     formData.append("phone", values.phone);
     formData.append("travel_date", values.travel_date);
     formData.append("pax", values.pax.toString());
-    formData.append("pax_child", (values.pax_child || 0).toString());
-    formData.append("pax_infant", (values.pax_infant || 0).toString());
     formData.append("notes", values.notes || "");
 
     try {
@@ -78,8 +72,6 @@ export default function BookingForm({ packageId, title, price, category_type }: 
       setIsPending(false);
     }
   };
-
-  const showChildPrice = (category_type === "daytrip" || category_type === "staycation");
 
   return (
     <Card className="shadow-lg border-primary/20 bg-background/95 backdrop-blur">
@@ -153,86 +145,24 @@ export default function BookingForm({ packageId, title, price, category_type }: 
               )}
             />
 
-            <div className="space-y-3 pt-2">
-              <FormLabel className="text-base text-foreground font-semibold">Number of Participants</FormLabel>
-              {showChildPrice ? (
-                <div className="grid grid-cols-3 gap-2 md:gap-4">
-                  <FormField
-                    control={form.control}
-                    name="pax"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs text-muted-foreground font-normal">12 Years and Above</FormLabel>
-                        <FormControl>
-                          <Input 
-                            type="number" 
-                            min="1" 
-                            {...field} 
-                            onChange={(e) => field.onChange(parseInt(e.target.value))}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="pax_child"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs text-muted-foreground font-normal">4 to 11 Years Old</FormLabel>
-                        <FormControl>
-                          <Input 
-                            type="number" 
-                            min="0" 
-                            {...field} 
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="pax_infant"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs text-muted-foreground font-normal">3 Years and Below</FormLabel>
-                        <FormControl>
-                          <Input 
-                            type="number" 
-                            min="0" 
-                            {...field} 
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              ) : (
-                <FormField
-                  control={form.control}
-                  name="pax"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs text-muted-foreground font-normal">Jumlah Orang</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="number" 
-                          min="1" 
-                          {...field} 
-                          onChange={(e) => field.onChange(parseInt(e.target.value))}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <FormField
+              control={form.control}
+              name="pax"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number of Participants</FormLabel>
+                  <FormControl>
+                    <Input 
+                      type="number" 
+                      min="1" 
+                      {...field} 
+                      onChange={(e) => field.onChange(parseInt(e.target.value))}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
+            />
 
             <FormField
               control={form.control}

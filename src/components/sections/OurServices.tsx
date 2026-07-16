@@ -13,13 +13,18 @@ export function OurServices() {
     },
     {
       title: "Private Transport Service",
-      image: "/transportation service.jpg",
+      image: "/transportation_new.jpeg",
       description: "Safe and comfortable private vehicles with professional drivers for your journey across Malaysia."
     },
     {
       title: "Hotel Arrangements",
       image: "/hotel arrangement.jpg",
       description: "Quality accommodation selections to ensure your stay is comfortable and well-located."
+    },
+    {
+      title: "Multiple Languages Tour Guide",
+      image: "/tour_guide.jpeg",
+      description: "Enjoy the trip with our professional tour guides that can speak several languages for most comfortable guidance."
     }
   ];
 
@@ -46,7 +51,7 @@ export function OurServices() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, i) => (
             <motion.div
               key={i}
@@ -61,7 +66,9 @@ export function OurServices() {
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className={`transition-transform duration-500 group-hover:scale-110 ${
+                      i === 3 ? "object-contain p-4" : "object-cover"
+                    }`}
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
                 </div>

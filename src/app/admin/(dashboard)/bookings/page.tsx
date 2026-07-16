@@ -65,11 +65,7 @@ export default async function BookingsPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <div className="text-sm">
-                          <div><strong>{b.pax}</strong> (12 years++)</div>
-                          {b.pax_child > 0 && <div><strong>{b.pax_child}</strong> (4-11 years)</div>}
-                          {b.pax_infant > 0 && <div><strong>{b.pax_infant}</strong> (3 years--)</div>}
-                        </div>
+                        <strong>{b.pax}</strong> pax
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">

@@ -32,8 +32,6 @@ const packageFormSchema = z.object({
   title: z.string().min(3, "Package title must be at least 3 characters."),
   slug: z.string().min(3, "Package slug must be at least 3 characters."),
   price: z.number().min(0, "Price cannot be negative."),
-  price_child: z.number().min(0, "Price cannot be negative.").optional(),
-  price_infant: z.number().min(0, "Price cannot be negative.").optional(),
   duration_days: z.number().min(1, "Duration must be at least 1 day."),
   description: z.string().min(10, "Description must be at least 10 characters."),
   is_featured: z.boolean(),
@@ -63,8 +61,6 @@ export default function PackageForm({
       title: initialData?.title || "",
       slug: initialData?.slug || "",
       price: initialData?.price ? Number(initialData.price) : 0,
-      price_child: initialData?.price_child ? Number(initialData.price_child) : 0,
-      price_infant: initialData?.price_infant ? Number(initialData.price_infant) : 0,
       duration_days: initialData?.duration_days ? Number(initialData.duration_days) : 1,
       description: initialData?.description || "",
       is_featured: initialData?.is_featured === true || initialData?.is_featured === "true",
@@ -89,8 +85,6 @@ export default function PackageForm({
     formData.append("title", values.title);
     formData.append("slug", values.slug);
     formData.append("price", values.price.toString());
-    formData.append("price_child", (values.price_child || 0).toString());
-    formData.append("price_infant", (values.price_infant || 0).toString());
     formData.append("duration_days", values.duration_days.toString());
     formData.append("description", values.description);
     formData.append("is_featured", values.is_featured.toString());
@@ -174,7 +168,7 @@ export default function PackageForm({
               />
             </div>
 
-            <div className="grid md:grid-cols-5 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
               <FormField
                 control={form.control}
                 name="category_id"
@@ -206,33 +200,7 @@ export default function PackageForm({
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>12 years++ (RM)</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="price_child"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>4-11 years (RM)</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="price_infant"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>3 years-- (RM)</FormLabel>
+                    <FormLabel>Price (RM)</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                     </FormControl>
