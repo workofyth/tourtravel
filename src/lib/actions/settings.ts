@@ -28,8 +28,12 @@ export async function updateSiteSettings(formData: FormData) {
   try {
     const rawData = {
       site_name: formData.get("site_name") as string | null,
-      logo_url: formData.get("logo_url") as string | null, // we'll handle this in a moment
+      site_name_en: formData.get("site_name_en") as string || null,
+      site_name_es: formData.get("site_name_es") as string || null,
+      logo_url: formData.get("logo_url") as string | null,
       address: formData.get("address") as string | null,
+      address_en: formData.get("address_en") as string || null,
+      address_es: formData.get("address_es") as string || null,
       email: formData.get("email") as string | null,
       phone: formData.get("phone") as string | null,
       whatsapp: formData.get("whatsapp") as string | null,
@@ -38,7 +42,6 @@ export async function updateSiteSettings(formData: FormData) {
       twitter_url: formData.get("twitter_url") as string | null,
     };
 
-    // Handle Image Upload
     const logoFile = formData.get("logo_file") as File | null;
     let finalLogoUrl = rawData.logo_url;
 
@@ -47,13 +50,17 @@ export async function updateSiteSettings(formData: FormData) {
     }
 
     await pool.query(
-      `UPDATE site_settings 
-       SET site_name = $1, logo_url = $2, address = $3, email = $4, phone = $5, whatsapp = $6, facebook_url = $7, instagram_url = $8, twitter_url = $9, updated_at = now()
+      `UPDATE site_settings
+       SET site_name = $1, site_name_en = $2, site_name_es = $3, logo_url = $4, address = $5, address_en = $6, address_es = $7, email = $8, phone = $9, whatsapp = $10, facebook_url = $11, instagram_url = $12, twitter_url = $13, updated_at = now()
        WHERE id = 1`,
       [
         rawData.site_name,
+        rawData.site_name_en,
+        rawData.site_name_es,
         finalLogoUrl,
         rawData.address,
+        rawData.address_en,
+        rawData.address_es,
         rawData.email,
         rawData.phone,
         rawData.whatsapp,
@@ -63,9 +70,9 @@ export async function updateSiteSettings(formData: FormData) {
       ]
     );
 
-    revalidatePath("/", "layout"); // Revalidate entire app basically
+    revalidatePath("/", "layout");
     revalidatePath("/admin/settings");
-    
+
     return { success: true, message: "Site settings updated successfully!" };
   } catch (error: any) {
     return { success: false, message: error.message || "Failed to update site settings" };

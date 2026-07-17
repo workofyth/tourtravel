@@ -30,15 +30,18 @@ import { getImageUrl } from "@/lib/utils";
 const packageFormSchema = z.object({
   category_id: z.string().min(1, "Please select a category."),
   title: z.string().min(3, "Package title must be at least 3 characters."),
+  title_es: z.string().optional(),
   slug: z.string().min(3, "Package slug must be at least 3 characters."),
-  price: z.number().min(0, "Price cannot be negative."),
-  duration_days: z.number().min(1, "Duration must be at least 1 day."),
+
   description: z.string().min(10, "Description must be at least 10 characters."),
+  description_es: z.string().optional(),
   is_featured: z.boolean(),
   itineraries: z.array(z.object({
     day_number: z.number(),
     title: z.string().min(1, "Day title is required."),
+    title_es: z.string().optional(),
     description: z.string().optional(),
+    description_es: z.string().optional(),
   })),
 });
 
@@ -59,12 +62,13 @@ export default function PackageForm({
     defaultValues: {
       category_id: initialData?.category_id || "",
       title: initialData?.title || "",
+      title_es: initialData?.title_es || "",
       slug: initialData?.slug || "",
-      price: initialData?.price ? Number(initialData.price) : 0,
-      duration_days: initialData?.duration_days ? Number(initialData.duration_days) : 1,
+
       description: initialData?.description || "",
+      description_es: initialData?.description_es || "",
       is_featured: initialData?.is_featured === true || initialData?.is_featured === "true",
-      itineraries: initialData?.itineraries || [{ day_number: 1, title: "", description: "" }],
+      itineraries: initialData?.itineraries || [{ day_number: 1, title: "", title_es: "", description: "", description_es: "" }],
     },
   });
 
@@ -83,10 +87,10 @@ export default function PackageForm({
     const formData = new FormData();
     formData.append("category_id", values.category_id);
     formData.append("title", values.title);
+    if (values.title_es) formData.append("title_es", values.title_es);
     formData.append("slug", values.slug);
-    formData.append("price", values.price.toString());
-    formData.append("duration_days", values.duration_days.toString());
     formData.append("description", values.description);
+    if (values.description_es) formData.append("description_es", values.description_es);
     formData.append("is_featured", values.is_featured.toString());
     formData.append("itineraries", JSON.stringify(values.itineraries));
     
@@ -191,32 +195,6 @@ export default function PackageForm({
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Price (RM)</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="duration_days"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Duration (Days)</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
-                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -329,6 +307,20 @@ export default function PackageForm({
               )}
             />
 
+            <details className="border rounded-lg p-4 bg-muted/20 group">
+              <summary className="cursor-pointer text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors select-none">
+                Spanish Translation
+              </summary>
+              <div className="mt-4 space-y-4">
+                <FormField control={form.control} name="title_es" render={({ field }) => (
+                  <FormItem><FormLabel>Title (Español)</FormLabel><FormControl><Input placeholder="Título en español" {...field} /></FormControl></FormItem>
+                )} />
+                <FormField control={form.control} name="description_es" render={({ field }) => (
+                  <FormItem><FormLabel>Description (Español)</FormLabel><FormControl><Editor value={field.value || ""} onChange={field.onChange} placeholder="Descripción en español..." /></FormControl></FormItem>
+                )} />
+              </div>
+            </details>
+
             <FormField
               control={form.control}
               name="is_featured"
@@ -358,7 +350,7 @@ export default function PackageForm({
                   type="button" 
                   variant="outline" 
                   size="sm" 
-                  onClick={() => append({ day_number: fields.length + 1, title: "", description: "" })}
+                  onClick={() => append({ day_number: fields.length + 1, title: "", title_es: "", description: "", description_es: "" })}
                   className="gap-2"
                 >
                   <Plus className="h-4 w-4" />
@@ -406,6 +398,17 @@ export default function PackageForm({
                               </FormItem>
                             )}
                           />
+                          <details className="mt-2 text-xs text-muted-foreground">
+                            <summary className="cursor-pointer hover:text-foreground select-none">Español</summary>
+                            <div className="mt-2 space-y-2 pl-2 border-l-2 border-muted">
+                              <FormField control={form.control} name={`itineraries.${index}.title_es`} render={({ field }) => (
+                                <FormItem><FormLabel className="text-xs">Título</FormLabel><FormControl><Input placeholder="Título español" className="h-8 text-sm" {...field} /></FormControl></FormItem>
+                              )} />
+                              <FormField control={form.control} name={`itineraries.${index}.description_es`} render={({ field }) => (
+                                <FormItem><FormLabel className="text-xs">Descripción</FormLabel><FormControl><Editor value={field.value || ""} onChange={field.onChange} placeholder="Descripción español..." /></FormControl></FormItem>
+                              )} />
+                            </div>
+                          </details>
                       </div>
                       <Button
                         type="button"

@@ -1,9 +1,13 @@
 export interface Category {
   id: string;
   name: string;
+  name_en?: string | null;
+  name_es?: string | null;
   slug: string;
   category: string;
   description: string;
+  description_en?: string | null;
+  description_es?: string | null;
   created_at: string;
 }
 
@@ -11,10 +15,12 @@ export interface Package {
   id: string;
   category_id: string;
   title: string;
+  title_en?: string | null;
+  title_es?: string | null;
   slug: string;
-  price: number;
-  duration_days: number;
   description: string;
+  description_en?: string | null;
+  description_es?: string | null;
   cover_image: string;
   is_featured: boolean;
   created_at: string;
@@ -40,7 +46,11 @@ export interface Itinerary {
   package_id: string;
   day_number: number;
   title: string;
+  title_en?: string | null;
+  title_es?: string | null;
   description: string;
+  description_en?: string | null;
+  description_es?: string | null;
   created_at: string;
 }
 
@@ -60,8 +70,12 @@ export interface Booking {
 export interface SiteSettings {
   id: number;
   site_name: string | null;
+  site_name_en?: string | null;
+  site_name_es?: string | null;
   logo_url: string | null;
   address: string | null;
+  address_en?: string | null;
+  address_es?: string | null;
   email: string | null;
   phone: string | null;
   whatsapp: string | null;
@@ -74,8 +88,14 @@ export interface SiteSettings {
 export interface Testimonial {
   id: string;
   name: string;
+  name_en?: string | null;
+  name_es?: string | null;
   role: string | null;
+  role_en?: string | null;
+  role_es?: string | null;
   content: string;
+  content_en?: string | null;
+  content_es?: string | null;
   rating: number;
   avatar_url: string | null;
   is_active: boolean;
@@ -85,12 +105,16 @@ export interface Testimonial {
 export interface Transportation {
   id: string;
   name: string;
+  name_en?: string | null;
+  name_es?: string | null;
   slug: string;
   image_url: string;
   capacity_pax: number;
   capacity_luggage: number;
   price_per_day: number;
   description: string;
+  description_en?: string | null;
+  description_es?: string | null;
   is_active: boolean;
   created_at: string;
 }

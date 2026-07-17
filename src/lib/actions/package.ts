@@ -9,10 +9,12 @@ import { put } from "@vercel/blob";
 const packageSchema = z.object({
   category_id: z.string().min(1),
   title: z.string().min(3, "Title must be at least 3 characters"),
+  title_en: z.string().optional(),
+  title_es: z.string().optional(),
   slug: z.string().min(3, "Slug must be at least 3 characters"),
-  price: z.number().min(0),
-  duration_days: z.number().min(1),
   description: z.string().min(10, "Description must be at least 10 characters"),
+  description_en: z.string().optional(),
+  description_es: z.string().optional(),
   is_featured: z.boolean().default(false),
 });
 
@@ -24,7 +26,6 @@ async function processImage(file: File): Promise<string> {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  // Resize to max 1080p (width or height)
   const resizedBuffer = await sharp(buffer)
     .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
     .toBuffer();
@@ -41,16 +42,17 @@ export async function createPackage(formData: FormData) {
     const rawData = {
       category_id: formData.get("category_id"),
       title: formData.get("title"),
+      title_en: formData.get("title_en") || null,
+      title_es: formData.get("title_es") || null,
       slug: formData.get("slug"),
-      price: Number(formData.get("price")),
-      duration_days: Number(formData.get("duration_days")),
       description: formData.get("description"),
+      description_en: formData.get("description_en") || null,
+      description_es: formData.get("description_es") || null,
       is_featured: formData.get("is_featured") === "true",
     };
 
     const validatedData = packageSchema.parse(rawData);
 
-    // Handle Image Uploads
     const imageFiles = formData.getAll("images") as File[];
     const uploadedFilenames: string[] = [];
 
@@ -64,16 +66,18 @@ export async function createPackage(formData: FormData) {
     const coverImage = uploadedFilenames[0] || "default.jpg";
 
     const result = await pool.query(
-      `INSERT INTO packages (category_id, title, slug, price, duration_days, description, cover_image, is_featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      `INSERT INTO packages (category_id, title, title_en, title_es, slug, description, description_en, description_es, cover_image, is_featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
        RETURNING id`,
       [
         validatedData.category_id,
         validatedData.title,
+        validatedData.title_en,
+        validatedData.title_es,
         validatedData.slug,
-        validatedData.price,
-        validatedData.duration_days,
         validatedData.description,
+        validatedData.description_en,
+        validatedData.description_es,
         coverImage,
         validatedData.is_featured,
       ]
@@ -81,7 +85,6 @@ export async function createPackage(formData: FormData) {
 
     const packageId = result.rows[0].id;
 
-    // Save package images
     for (let i = 0; i < uploadedFilenames.length; i++) {
         await pool.query(
           `INSERT INTO package_images (package_id, image_url, sort_order) VALUES ($1, $2, $3)`,
@@ -94,9 +97,9 @@ export async function createPackage(formData: FormData) {
     if (itineraries.length > 0) {
       for (const item of itineraries) {
         await pool.query(
-          `INSERT INTO itineraries (package_id, day_number, title, description)
-           VALUES ($1, $2, $3, $4)`,
-          [packageId, item.day_number, item.title, item.description]
+          `INSERT INTO itineraries (package_id, day_number, title, title_en, title_es, description, description_en, description_es)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+          [packageId, item.day_number, item.title, item.title_en || null, item.title_es || null, item.description, item.description_en || null, item.description_es || null]
         );
       }
     }
@@ -104,7 +107,7 @@ export async function createPackage(formData: FormData) {
     revalidatePath("/admin/packages");
     revalidatePath("/packages");
     revalidatePath("/");
-    
+
     return { success: true, message: "Package added successfully!" };
   } catch (error: any) {
     console.error("Error creating package:", error);
@@ -117,16 +120,17 @@ export async function updatePackage(id: string, formData: FormData) {
     const rawData = {
       category_id: formData.get("category_id"),
       title: formData.get("title"),
+      title_en: formData.get("title_en") || null,
+      title_es: formData.get("title_es") || null,
       slug: formData.get("slug"),
-      price: Number(formData.get("price")),
-      duration_days: Number(formData.get("duration_days")),
       description: formData.get("description"),
+      description_en: formData.get("description_en") || null,
+      description_es: formData.get("description_es") || null,
       is_featured: formData.get("is_featured") === "true",
     };
 
     const validatedData = packageSchema.parse(rawData);
 
-    // Handle New Image Uploads
     const imageFiles = formData.getAll("images") as File[];
     const newUploadedFilenames: string[] = [];
 
@@ -137,7 +141,6 @@ export async function updatePackage(id: string, formData: FormData) {
       }
     }
 
-    // Handle existing images to keep
     const existingImagesRaw = formData.get("existing_images") as string || "[]";
     const existingImages = JSON.parse(existingImagesRaw) as string[];
 
@@ -145,23 +148,24 @@ export async function updatePackage(id: string, formData: FormData) {
     const coverImage = allImages[0] || "default.jpg";
 
     await pool.query(
-      `UPDATE packages 
-       SET category_id = $1, title = $2, slug = $3, price = $4, duration_days = $5, description = $6, is_featured = $7, cover_image = $8
-       WHERE id = $9`,
+      `UPDATE packages
+       SET category_id = $1, title = $2, title_en = $3, title_es = $4, slug = $5, description = $6, description_en = $7, description_es = $8, is_featured = $9, cover_image = $10
+       WHERE id = $11`,
       [
         validatedData.category_id,
         validatedData.title,
+        validatedData.title_en,
+        validatedData.title_es,
         validatedData.slug,
-        validatedData.price,
-        validatedData.duration_days,
         validatedData.description,
+        validatedData.description_en,
+        validatedData.description_es,
         validatedData.is_featured,
         coverImage,
         id,
       ]
     );
 
-    // Sync package_images
     await pool.query("DELETE FROM package_images WHERE package_id = $1", [id]);
     for (let i = 0; i < allImages.length; i++) {
       await pool.query(
@@ -170,15 +174,14 @@ export async function updatePackage(id: string, formData: FormData) {
       );
     }
 
-    // Sync itineraries
     await pool.query("DELETE FROM itineraries WHERE package_id = $1", [id]);
     const itineraries = JSON.parse(formData.get("itineraries") as string || "[]");
     if (itineraries.length > 0) {
       for (const item of itineraries) {
         await pool.query(
-          `INSERT INTO itineraries (package_id, day_number, title, description)
-           VALUES ($1, $2, $3, $4)`,
-          [id, item.day_number, item.title, item.description]
+          `INSERT INTO itineraries (package_id, day_number, title, title_en, title_es, description, description_en, description_es)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+          [id, item.day_number, item.title, item.title_en || null, item.title_es || null, item.description, item.description_en || null, item.description_es || null]
         );
       }
     }
@@ -186,7 +189,7 @@ export async function updatePackage(id: string, formData: FormData) {
     revalidatePath("/admin/packages");
     revalidatePath("/packages");
     revalidatePath(`/packages/${validatedData.slug}`);
-    
+
     return { success: true, message: "Package updated successfully!" };
   } catch (error: any) {
     console.error("Error updating package:", error);

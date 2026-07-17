@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
-import { MapPin, Menu, X, ChevronRight, Info, Car, Route } from "lucide-react";
+import { MapPin, Menu, X, Car, Route } from "lucide-react";
 import { CategoryDropdown } from "./CategoryDropdown";
 import { Category } from "@/types";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 interface NavbarClientProps {
   settings: any;
@@ -15,15 +17,14 @@ interface NavbarClientProps {
 
 export function NavbarClient({ settings, categories }: NavbarClientProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("nav");
 
-  // Close menu on navigation
   useEffect(() => {
     setIsOpen(false);
   }, []);
 
   return (
     <nav className="z-50 w-full text-white">
-      {/* Top Sticky Bar */}
       <div className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#001C44] h-16 flex items-center px-4">
         <div className="container mx-auto flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
@@ -36,22 +37,21 @@ export function NavbarClient({ settings, categories }: NavbarClientProps) {
                     </div>
                 )}
             </Link>
-            
-            {/* Desktop Nav Links */}
+
             <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
-                <Link href="/" className="transition-colors hover:text-white/80 text-white/90">Home</Link>
+                <Link href="/" className="transition-colors hover:text-white/80 text-white/90">{t("home")}</Link>
                 <CategoryDropdown categories={categories} />
-                <Link href="/gallery" className="transition-colors hover:text-white/80 text-white/90">Gallery</Link>
-                <Link href="/why-us" className="transition-colors hover:text-white/80 text-white/90">Why Us</Link>
-                <Link href="/#our-services" className="transition-colors hover:text-white/80 text-white/90">Services</Link>
+                <Link href="/gallery" className="transition-colors hover:text-white/80 text-white/90">{t("gallery")}</Link>
+                <Link href="/why-us" className="transition-colors hover:text-white/80 text-white/90">{t("whyUs")}</Link>
+                <Link href="/#our-services" className="transition-colors hover:text-white/80 text-white/90">{t("services")}</Link>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+                <LanguageSwitcher />
                 <ButtonLink href="/packages" className="hidden md:flex">
-                    Search Packages
+                    {t("searchPackages")}
                 </ButtonLink>
-                {/* Mobile Burger Button */}
-                <button 
+                <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="md:hidden p-2 text-white/70 hover:text-white transition-colors"
                 >
@@ -61,7 +61,6 @@ export function NavbarClient({ settings, categories }: NavbarClientProps) {
         </div>
       </div>
 
-      {/* Mobile Side/Full-screen Menu */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -81,7 +80,7 @@ export function NavbarClient({ settings, categories }: NavbarClientProps) {
             >
                 <div className="flex items-center justify-between mb-12">
                     <span className="font-bold text-xl">Menu</span>
-                    <button 
+                    <button
                         onClick={() => setIsOpen(false)}
                         className="p-2 bg-white/10 rounded-full"
                     >
@@ -91,46 +90,46 @@ export function NavbarClient({ settings, categories }: NavbarClientProps) {
 
                 <div className="flex flex-col gap-6">
                     <Link href="/" onClick={() => setIsOpen(false)} className="text-2xl font-bold border-b border-white/5 pb-4">
-                        Home
+                        {t("home")}
                     </Link>
                     <Link href="/packages" onClick={() => setIsOpen(false)} className="text-2xl font-bold border-b border-white/5 pb-4">
-                        Tour Packages
+                        {t("tourPackages")}
                     </Link>
                     <Link href="/gallery" onClick={() => setIsOpen(false)} className="text-2xl font-bold border-b border-white/5 pb-4">
-                        Gallery
+                        {t("gallery")}
                     </Link>
                     <Link href="/why-us" onClick={() => setIsOpen(false)} className="text-2xl font-bold border-b border-white/5 pb-4">
-                        Why Us
+                        {t("whyUs")}
                     </Link>
 
                     <div className="space-y-4 pt-4">
                         <p className="text-xs font-bold text-[#90CAF9] uppercase tracking-widest">Our Services</p>
                         <div className="grid grid-cols-1 gap-3">
-                            <Link 
-                                href="/transportation" 
+                            <Link
+                                href="/transportation"
                                 onClick={() => setIsOpen(false)}
                                 className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl"
                             >
                                 <Car className="h-5 w-5 text-green-400" />
-                                <span className="font-medium">Transport Service</span>
+                                <span className="font-medium">{t("transportService")}</span>
                             </Link>
-                            <Link 
-                                href="/#our-services" 
+                            <Link
+                                href="/#our-services"
                                 onClick={() => setIsOpen(false)}
                                 className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl"
                             >
                                 <Route className="h-5 w-5 text-blue-400" />
-                                <span className="font-medium">Travel Packages</span>
+                                <span className="font-medium">{t("travelPackages")}</span>
                             </Link>
                         </div>
                     </div>
 
                     <div className="pt-8">
-                        <a 
+                        <a
                             href={`https://wa.me/${settings?.whatsapp?.replace(/\D/g, '') || "60195852877"}`}
                             className="flex flex-col items-center gap-2 p-6 bg-[#25D366] rounded-3xl text-white shadow-lg shadow-green-500/20"
                         >
-                            <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Contact via WhatsApp</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest opacity-80">{t("contactViaWhatsapp")}</span>
                             <span className="text-lg font-bold">+{settings?.whatsapp || "60195852877"}</span>
                         </a>
                     </div>

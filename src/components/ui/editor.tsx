@@ -165,25 +165,14 @@ export function Editor({ value, onChange, placeholder, className }: EditorProps)
         contentEditable
         suppressContentEditableWarning
         onInput={handleInput}
-        className="min-h-[200px] p-4 focus:outline-none prose prose-slate max-w-none dark:prose-invert"
+        className="min-h-[200px] p-4 focus:outline-none prose prose-slate max-w-none dark:prose-invert editor-content"
         data-placeholder={placeholder}
       />
-      <style jsx>{`
-        [contenteditable]:empty:before {
-          content: attr(data-placeholder);
-          color: #94a3b8;
-          pointer-events: none;
-          cursor: text;
-        }
-        [contenteditable] {
-          outline: none;
-        }
-        [contenteditable] p {
-          margin-bottom: 0.75rem;
-        }
-        [contenteditable] div {
-          margin-bottom: 0.75rem;
-        }
+      <style>{`
+        .editor-content h1 { font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
+        .editor-content h2 { font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+        .editor-content p { margin-bottom: 0.5rem; }
+        .editor-content div { margin-bottom: 0.5rem; }
       `}</style>
     </div>
   );

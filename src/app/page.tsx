@@ -7,10 +7,12 @@ import { HighlightsSection } from "@/components/sections/HighlightsSection";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { getActiveTestimonials } from "@/lib/queries/testimonials";
 import { getFeaturedPackages } from "@/lib/queries/packages";
+import { getLocale } from "next-intl/server";
 
 export default async function Home() {
-  const testimonials = await getActiveTestimonials();
-  const featuredPackages = await getFeaturedPackages();
+  const locale = await getLocale();
+  const testimonials = await getActiveTestimonials(locale);
+  const featuredPackages = await getFeaturedPackages(locale);
 
   return (
     <>

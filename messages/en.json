@@ -1,0 +1,198 @@
+{
+  "nav": {
+    "home": "Home",
+    "packages": "Packages",
+    "gallery": "Gallery",
+    "whyUs": "Why Us",
+    "services": "Services",
+    "tourPackages": "Tour Packages",
+    "allPackages": "All Packages",
+    "transportation": "Transportation",
+    "searchPackages": "Search Packages",
+    "contactViaWhatsapp": "Contact via WhatsApp",
+    "transportService": "Transport Service",
+    "travelPackages": "Travel Packages"
+  },
+  "hero": {
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "defaultSubtitle": "YOUR JOURNEY STARTS HERE",
+    "defaultTitle": "EXPLORE THE WORLD"
+  },
+  "featuredPackages": {
+    "title": "Popular Packages",
+    "subtitle": "Our best selection of holiday packages most frequently booked",
+    "popular": "Popular",
+    "days": "Days",
+    "startingFrom": "Starting from",
+    "details": "Details",
+    "viewAll": "View All Packages"
+  },
+  "highlights": {
+    "title": "Why Travel With Hola Amigos?",
+    "items": [
+      {
+        "title": "TRUSTED TRAVEL AGENCY IN MALAYSIA",
+        "description": "With more than 6 years of experience managing and offering travel packages to Kuala Lumpur, Malacca, and Selangor, Hola Amigos Travel is your most trusted travel agency for an unforgettable journey to Malaysia."
+      },
+      {
+        "title": "ATTRACTIVE TRAVEL PACKAGES FOR EVERYONE",
+        "description": "Whether you are traveling solo or in groups (corporate, family, or friends), we are your preferred travel agency. We also welcome corporate and government agency clients."
+      },
+      {
+        "title": "EXPERIENCED AND FRIENDLY TOUR GUIDES",
+        "description": "Enjoy your trip to Malaysia with our experienced local tour guides. Let us guide you to Malaysia's attractions, historical sites, food stalls, shopping destinations, and much more. Your satisfaction is our priority."
+      },
+      {
+        "title": "CAPTIVATING TRAVEL PACKAGES",
+        "description": "Choose from our exciting packages tailored to your preferences. From cities to islands to mountains, with plenty of activities to enjoy, we will bring you the very best of Malaysia."
+      },
+      {
+        "title": "RELIABLE CAR RENTAL SERVICES",
+        "description": "Book your car through our car rental service. You may choose to drive yourself or use our experienced drivers as your travel assistants."
+      }
+    ]
+  },
+  "ourServices": {
+    "title": "Our Service",
+    "subtitle": "Experience premium travel services with Hola Amigos for your best holiday journey",
+    "customizedTour": "Customized Tour Package",
+    "customizedTourDesc": "We provide personalized tour packages tailored to your specific travel needs and preferences.",
+    "privateTransport": "Private Transport Service",
+    "privateTransportDesc": "Safe and comfortable private vehicles with professional drivers for your journey across Malaysia.",
+    "hotelArrangements": "Hotel Arrangements",
+    "hotelArrangementsDesc": "Quality accommodation selections to ensure your stay is comfortable and well-located.",
+    "multilingualGuide": "Multiple Languages Tour Guide",
+    "multilingualGuideDesc": "Enjoy the trip with our professional tour guides that can speak several languages for most comfortable guidance."
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Memorable holiday experiences shared by our customers"
+  },
+  "whyUs": {
+    "sectionTitle": "Why Choose Us",
+    "heading": "Why Choose Hola Amigos",
+    "description": "We are proud to introduce travellers to the beauty of Malaysia – Truly Asia. With more than {years} years of experience in the tourism industry, we specialise in providing comfortable transportation, professional tour services, and unforgettable travel experiences across Malaysia.",
+    "sideDescription": "Whether you are travelling as a couple, family, or group, our team is ready to help you explore the beauty, culture, and history of Malaysia.",
+    "sideDescription2": "From modern cities to historical heritage and natural attractions, we ensure every journey is safe, enjoyable, and memorable.",
+    "quote": "\"We provide more than just a trip, we provide memories that last a lifetime.\"",
+    "highlights": [
+      "25 Years Tourism Experience",
+      "Trusted Local Travel Service",
+      "Comfortable Private Transport",
+      "Professional & Friendly Guides",
+      "Flexible Tour Arrangements",
+      "Easy Booking via WhatsApp"
+    ]
+  },
+  "footer": {
+    "address": "Providing unforgettable holiday experiences with premium service and affordable prices.",
+    "navigation": "Navigation",
+    "popularCategories": "Popular Categories",
+    "followUs": "Follow Us",
+    "allRightsReserved": "All rights reserved.",
+    "daytrip": "Daytrip",
+    "staycation": "Staycation",
+    "tourPackages": "Tour Packages"
+  },
+  "packages": {
+    "title": "Categories & Tour Packages",
+    "subtitle": "Discover a wide selection of exciting tour packages we have prepared just for you.",
+    "noPackages": "No Packages Found",
+    "noPackagesDesc": "Sorry, no packages match your filters. Please try other criteria or reset.",
+    "resetFilters": "Reset All Filters",
+    "popular": "Popular",
+    "days": "Days",
+    "startingFrom": "Starting from",
+    "details": "Details",
+    "keyword": "Keyword",
+    "whereToGo": "Where to go?",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "maxBudget": "Max Budget (RM)",
+    "search": "Search",
+    "reset": "Reset",
+    "personalized": "Personalized Experience",
+    "customizeTitle": "Or, Customize Your Own Tour Package!",
+    "customizeDesc": "At Hola Amigos Malaysia Tour & Transport, we understand that every traveller has different travel plans. That is why we offer customised tour packages according to your preferences.",
+    "youCanChoose": "What You Can Choose:",
+    "chooseItems": ["Their own travel itinerary", "Preferred destinations", "Hotel category", "Travel budget"],
+    "customizeQuote": "\"Our team will organise everything so you can enjoy a smooth and unforgettable holiday in Malaysia.\"",
+    "contactTeam": "Contact Our Team",
+    "availableDaily": "Available daily for consultations"
+  },
+  "packageDetail": {
+    "popularPackage": "Popular Package",
+    "dayTrip": "Day Trip",
+    "tripDescription": "Trip Description",
+    "itinerary": "Itinerary",
+    "bookPackage": "Book Package",
+    "startingFrom": "Starting from",
+    "perPax": "/ pax",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone/WA Number",
+    "travelDate": "Travel Date",
+    "participants": "Number of Participants",
+    "specialNotes": "Special Notes (Optional)",
+    "notesPlaceholder": "Special dietary requirements, seating preferences, etc...",
+    "confirmBooking": "Confirm Booking",
+    "processing": "Processing...",
+    "bookingNote": "We will contact you for further payment processing."
+  },
+  "gallery": {
+    "title": "Holiday Gallery",
+    "subtitle": "Take a look at the beautiful moments from our customers' trips with Hola Amigos.",
+    "empty": "No photos in the gallery yet."
+  },
+  "whyUsPage": {
+    "heroTitle": "Why Travel With Hola Amigos?",
+    "heroDesc": "Discover why thousands of travelers trust us to handle their Malaysian adventures for over two decades.",
+    "legacyLabel": "Our Legacy",
+    "legacyHeading": "A Quarter Century of Excellence",
+    "legacyDesc": "We are proud to introduce travellers to the beauty of Malaysia – Truly Asia. With more than 25 years of experience in the tourism industry, we specialise in providing comfortable transportation, professional tour services, and unforgettable travel experiences across Malaysia.",
+    "legacyDesc2": "Whether you are travelling as a couple, family, or group, our team is ready to help you explore the beauty, culture, and history of Malaysia. From modern cities to historical heritage and natural attractions, we ensure every journey is safe, enjoyable, and memorable.",
+    "features": [
+      { "title": "25+ Years Experience", "description": "Our long-standing presence in the industry ensures we know every corner of Malaysia and how to provide the best service." },
+      { "title": "Trusted Local Service", "description": "As a local expert, we provide authentic experiences that international agencies might miss." },
+      { "title": "Private & Comfortable", "description": "All our tours use private transportation to ensure your comfort and safety throughout the journey." },
+      { "title": "Flexible Planning", "description": "Want to change the itinerary? No problem. We offer flexible tour arrangements tailored to your needs." }
+    ],
+    "ctaTitle": "Ready to Plan Your Perfect Trip?",
+    "ctaDesc": "Join us for an unforgettable journey through Malaysia's hidden gems and iconic landmarks.",
+    "browsePackages": "Browse Our Packages",
+    "talkToExpert": "Talk to an Expert"
+  },
+  "transportation": {
+    "premiumBadge": "Premium Travel Experience",
+    "heroTitle": "Seamless Transportation For Your Journey",
+    "heroDesc": "Travel in comfort and style with our diverse fleet of well-maintained vehicles, tailored to fit every group size and destination.",
+    "bookViaWhatsapp": "Book via WhatsApp",
+    "viewPricing": "View Pricing",
+    "fleetTitle": "A Fleet Built for Every Group",
+    "fleetDesc": "We offer a range of vehicle options to ensure you have the perfect ride for your trip. Whether you're a small family or a large corporate group, we've got you covered.",
+    "capacity": "Capacity",
+    "note": "Note: All our vehicles are air-conditioned, regularly serviced, and come with experienced drivers who know the best routes to your destination.",
+    "driverQuote": "\"Your safety and comfort are our top priorities. Our professional drivers are ready to take you anywhere.\"",
+    "pricingTitle": "Simple, Transparent Pricing",
+    "pricingDesc": "Competitive rates calculated per person based on your group size. All prices include driver, fuel, and tolls.",
+    "groupSize": "Group Size",
+    "pricePerPerson": "Price Per Person",
+    "perPax": "per pax",
+    "customQuote": "Need a custom quote for a larger group or specific itinerary?",
+    "getCustomQuote": "Get a Custom Quote",
+    "benefit1Title": "Safe & Reliable",
+    "benefit1Desc": "All vehicles are fully insured and undergo rigorous safety inspections regularly.",
+    "benefit2Title": "Local Expertise",
+    "benefit2Desc": "Our drivers are locals who know the hidden gems and the most efficient routes.",
+    "benefit3Title": "Modern Fleet",
+    "benefit3Desc": "Enjoy modern amenities and comfortable seating in our air-conditioned vehicles."
+  },
+  "common": {
+    "loading": "Loading..."
+  },
+  "language": {
+    "en": "English",
+    "es": "Español"
+  }
+}

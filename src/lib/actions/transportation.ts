@@ -8,11 +8,15 @@ import { put } from "@vercel/blob";
 
 const transportationSchema = z.object({
   name: z.string().min(3, "Nama minimal 3 karakter"),
+  name_en: z.string().optional(),
+  name_es: z.string().optional(),
   slug: z.string().min(3, "Slug minimal 3 karakter"),
   capacity_pax: z.number().min(1, "Kapasitas penumpang minimal 1"),
   capacity_luggage: z.number().min(0, "Kapasitas bagasi minimal 0"),
   price_per_day: z.number().min(0, "Harga minimal 0"),
   description: z.string().optional(),
+  description_en: z.string().optional(),
+  description_es: z.string().optional(),
   is_active: z.boolean().default(true),
 });
 
@@ -24,7 +28,6 @@ async function processImage(file: File): Promise<string> {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  // Resize to max 1080p (width or height)
   const resizedBuffer = await sharp(buffer)
     .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
     .toBuffer();
@@ -40,17 +43,20 @@ export async function createTransportation(formData: FormData) {
   try {
     const rawData = {
       name: formData.get("name"),
+      name_en: formData.get("name_en") || null,
+      name_es: formData.get("name_es") || null,
       slug: formData.get("slug"),
       capacity_pax: Number(formData.get("capacity_pax")),
       capacity_luggage: Number(formData.get("capacity_luggage")),
       price_per_day: Number(formData.get("price_per_day")),
       description: formData.get("description"),
+      description_en: formData.get("description_en") || null,
+      description_es: formData.get("description_es") || null,
       is_active: formData.get("is_active") === "true",
     };
 
     const validatedData = transportationSchema.parse(rawData);
 
-    // Handle Image Upload
     const imageFile = formData.get("image") as File;
     let imageUrl = "default-car.jpg";
 
@@ -59,16 +65,20 @@ export async function createTransportation(formData: FormData) {
     }
 
     await pool.query(
-      `INSERT INTO transportations (name, slug, image_url, capacity_pax, capacity_luggage, price_per_day, description, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      `INSERT INTO transportations (name, name_en, name_es, slug, image_url, capacity_pax, capacity_luggage, price_per_day, description, description_en, description_es, is_active)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
       [
         validatedData.name,
+        validatedData.name_en,
+        validatedData.name_es,
         validatedData.slug,
         imageUrl,
         validatedData.capacity_pax,
         validatedData.capacity_luggage,
         validatedData.price_per_day,
         validatedData.description,
+        validatedData.description_en,
+        validatedData.description_es,
         validatedData.is_active,
       ]
     );
@@ -76,7 +86,7 @@ export async function createTransportation(formData: FormData) {
     revalidatePath("/admin/transportations");
     revalidatePath("/transportation");
     revalidatePath("/");
-    
+
     return { success: true, message: "Transportation berhasil ditambahkan!" };
   } catch (error: any) {
     console.error("Error creating transportation:", error);
@@ -88,17 +98,20 @@ export async function updateTransportation(id: string, formData: FormData) {
   try {
     const rawData = {
       name: formData.get("name"),
+      name_en: formData.get("name_en") || null,
+      name_es: formData.get("name_es") || null,
       slug: formData.get("slug"),
       capacity_pax: Number(formData.get("capacity_pax")),
       capacity_luggage: Number(formData.get("capacity_luggage")),
       price_per_day: Number(formData.get("price_per_day")),
       description: formData.get("description"),
+      description_en: formData.get("description_en") || null,
+      description_es: formData.get("description_es") || null,
       is_active: formData.get("is_active") === "true",
     };
 
     const validatedData = transportationSchema.parse(rawData);
 
-    // Handle New Image Upload
     const imageFile = formData.get("image") as File;
     let imageUrl = formData.get("existing_image") as string || "default-car.jpg";
 
@@ -107,17 +120,21 @@ export async function updateTransportation(id: string, formData: FormData) {
     }
 
     await pool.query(
-      `UPDATE transportations 
-       SET name = $1, slug = $2, image_url = $3, capacity_pax = $4, capacity_luggage = $5, price_per_day = $6, description = $7, is_active = $8
-       WHERE id = $9`,
+      `UPDATE transportations
+       SET name = $1, name_en = $2, name_es = $3, slug = $4, image_url = $5, capacity_pax = $6, capacity_luggage = $7, price_per_day = $8, description = $9, description_en = $10, description_es = $11, is_active = $12
+       WHERE id = $13`,
       [
         validatedData.name,
+        validatedData.name_en,
+        validatedData.name_es,
         validatedData.slug,
         imageUrl,
         validatedData.capacity_pax,
         validatedData.capacity_luggage,
         validatedData.price_per_day,
         validatedData.description,
+        validatedData.description_en,
+        validatedData.description_es,
         validatedData.is_active,
         id,
       ]
@@ -126,7 +143,7 @@ export async function updateTransportation(id: string, formData: FormData) {
     revalidatePath("/admin/transportations");
     revalidatePath("/transportation");
     revalidatePath("/");
-    
+
     return { success: true, message: "Transportation berhasil diperbarui!" };
   } catch (error: any) {
     console.error("Error updating transportation:", error);

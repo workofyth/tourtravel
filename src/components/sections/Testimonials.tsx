@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 import { Testimonial } from "@/types";
 
@@ -11,27 +12,29 @@ interface Props {
 }
 
 export function Testimonials({ testimonials }: Props) {
+  const t = useTranslations("testimonials");
+
   if (!testimonials || testimonials.length === 0) return null;
   return (
     <section className="py-20">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
-            What Our Clients Say
+            {t("title")}
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground"
           >
-            Memorable holiday experiences shared by our customers
+            {t("subtitle")}
           </motion.p>
         </div>
 
@@ -52,7 +55,7 @@ export function Testimonials({ testimonials }: Props) {
                     ))}
                   </div>
                   <p className="italic text-lg text-muted-foreground mb-8">
-                    "{col.content}"
+                    &ldquo;{col.content}&rdquo;
                   </p>
                   <div className="flex items-center gap-4">
                     {col.avatar_url ? (

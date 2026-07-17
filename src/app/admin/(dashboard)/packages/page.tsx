@@ -42,8 +42,7 @@ export default async function PackagesAdminPage() {
                 <TableRow>
                   <TableHead>Package Title</TableHead>
                   <TableHead>Category</TableHead>
-                  <TableHead>Duration</TableHead>
-                  <TableHead>Price</TableHead>
+
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -56,10 +55,6 @@ export default async function PackagesAdminPage() {
                         {pkg.title}
                       </TableCell>
                       <TableCell className="capitalize">{pkg.category_name}</TableCell>
-                      <TableCell>{pkg.duration_days} Days</TableCell>
-                      <TableCell>
-                        <div className="font-semibold text-xs text-primary">RM {Number(pkg.price)}</div>
-                      </TableCell>
                       <TableCell>
                         {pkg.is_featured ? (
                           <Badge className="bg-primary">Featured</Badge>

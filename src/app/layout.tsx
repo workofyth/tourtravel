@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Inter, Roboto, Roboto_Slab } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/sections/Navbar';
@@ -6,6 +5,8 @@ import { Footer } from '@/components/sections/Footer';
 import { Toaster } from '@/components/ui/sonner';
 import { getSiteSettings } from '@/lib/queries/settings';
 import Image from 'next/image';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, getLocale } from 'next-intl/server';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700', '900'], variable: '--font-roboto' });
@@ -26,16 +27,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const settings = await getSiteSettings();
+  const locale = await getLocale();
+  const messages = await getMessages();
 
   return (
-    <html lang="id">
+    <html lang={locale}>
       <body className={`${inter.variable} ${roboto.variable} ${robotoSlab.variable} font-sans min-h-screen flex flex-col antialiased`}>
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Toaster />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster />
+        </NextIntlClientProvider>
 
-        {/* Floating WA button (Desktop Only) */}
         {settings?.whatsapp && (
           <div className="fixed bottom-6 right-6 z-50 hidden md:block">
             <a
