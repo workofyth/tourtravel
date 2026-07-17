@@ -28,8 +28,14 @@ export async function createTestimonial(formData: FormData) {
   try {
     const rawData = {
       name: formData.get("name") as string,
+      name_en: formData.get("name_en") as string || null,
+      name_es: formData.get("name_es") as string || null,
       role: formData.get("role") as string | null,
+      role_en: formData.get("role_en") as string || null,
+      role_es: formData.get("role_es") as string || null,
       content: formData.get("content") as string,
+      content_en: formData.get("content_en") as string || null,
+      content_es: formData.get("content_es") as string || null,
       rating: parseInt(formData.get("rating") as string, 10) || 5,
       avatar_url: formData.get("avatar_url") as string | null,
       is_active: formData.get("is_active") === "true",
@@ -47,12 +53,18 @@ export async function createTestimonial(formData: FormData) {
     }
 
     await pool.query(
-      `INSERT INTO testimonials (name, role, content, rating, avatar_url, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
+      `INSERT INTO testimonials (name, name_en, name_es, role, role_en, role_es, content, content_en, content_es, rating, avatar_url, is_active)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
       [
         rawData.name,
+        rawData.name_en,
+        rawData.name_es,
         rawData.role,
+        rawData.role_en,
+        rawData.role_es,
         rawData.content,
+        rawData.content_en,
+        rawData.content_es,
         rawData.rating,
         finalAvatarUrl,
         rawData.is_active,
@@ -61,7 +73,7 @@ export async function createTestimonial(formData: FormData) {
 
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
-    
+
     return { success: true, message: "Testimonial berhasil ditambahkan!" };
   } catch (error: any) {
     return { success: false, message: error.message || "Gagal menambahkan testimonial" };
@@ -72,8 +84,14 @@ export async function updateTestimonial(id: string, formData: FormData) {
   try {
     const rawData = {
       name: formData.get("name") as string,
+      name_en: formData.get("name_en") as string || null,
+      name_es: formData.get("name_es") as string || null,
       role: formData.get("role") as string | null,
+      role_en: formData.get("role_en") as string || null,
+      role_es: formData.get("role_es") as string || null,
       content: formData.get("content") as string,
+      content_en: formData.get("content_en") as string || null,
+      content_es: formData.get("content_es") as string || null,
       rating: parseInt(formData.get("rating") as string, 10) || 5,
       avatar_url: formData.get("avatar_url") as string | null,
       is_active: formData.get("is_active") === "true",
@@ -91,13 +109,19 @@ export async function updateTestimonial(id: string, formData: FormData) {
     }
 
     await pool.query(
-      `UPDATE testimonials 
-       SET name = $1, role = $2, content = $3, rating = $4, avatar_url = $5, is_active = $6
-       WHERE id = $7`,
+      `UPDATE testimonials
+       SET name = $1, name_en = $2, name_es = $3, role = $4, role_en = $5, role_es = $6, content = $7, content_en = $8, content_es = $9, rating = $10, avatar_url = $11, is_active = $12
+       WHERE id = $13`,
       [
         rawData.name,
+        rawData.name_en,
+        rawData.name_es,
         rawData.role,
+        rawData.role_en,
+        rawData.role_es,
         rawData.content,
+        rawData.content_en,
+        rawData.content_es,
         rawData.rating,
         finalAvatarUrl,
         rawData.is_active,
@@ -107,7 +131,7 @@ export async function updateTestimonial(id: string, formData: FormData) {
 
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
-    
+
     return { success: true, message: "Testimonial berhasil diperbarui!" };
   } catch (error: any) {
     return { success: false, message: error.message || "Gagal memperbarui testimonial" };

@@ -5,11 +5,11 @@ import { revalidatePath } from "next/cache";
 import { put } from "@vercel/blob";
 import crypto from "crypto";
 
-// const UPLOAD_DIR = path.join(process.cwd(), "public/uploads/gallery");
-
 export async function createGalleryItem(formData: FormData) {
   try {
     const title = formData.get("title") as string;
+    const title_en = formData.get("title_en") as string || null;
+    const title_es = formData.get("title_es") as string || null;
     const image = formData.get("image") as File;
     const sort_order = Number(formData.get("sort_order") || 0);
 
@@ -25,11 +25,10 @@ export async function createGalleryItem(formData: FormData) {
     try {
       try {
         await client.query(
-          "INSERT INTO galleries (title, image_url, sort_order) VALUES ($1, $2, $3)",
-          [title || null, url, sort_order]
+          "INSERT INTO galleries (title, title_en, title_es, image_url, sort_order) VALUES ($1, $2, $3, $4, $5)",
+          [title || null, title_en, title_es, url, sort_order]
         );
       } catch (err: any) {
-        // If table doesn't exist, create it and retry
         if (err.code === "42P01") {
           console.log("Auto-creating galleries table...");
           await client.query(`CREATE EXTENSION IF NOT EXISTS "pgcrypto";`);
@@ -37,15 +36,16 @@ export async function createGalleryItem(formData: FormData) {
             CREATE TABLE IF NOT EXISTS galleries (
               id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
               title VARCHAR(255),
+              title_en VARCHAR(255),
+              title_es VARCHAR(255),
               image_url TEXT NOT NULL,
               sort_order INTEGER DEFAULT 0,
               created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             );
           `);
-          // Retry the insert
           await client.query(
-            "INSERT INTO galleries (title, image_url, sort_order) VALUES ($1, $2, $3)",
-            [title || null, url, sort_order]
+            "INSERT INTO galleries (title, title_en, title_es, image_url, sort_order) VALUES ($1, $2, $3, $4, $5)",
+            [title || null, title_en, title_es, url, sort_order]
           );
         } else {
           throw err;
@@ -68,9 +68,6 @@ export async function deleteGalleryItem(id: string) {
   try {
     const client = await pool.connect();
     try {
-      // Note: We don't delete from Vercel Blob here for simplicity, 
-      // but you could use head() and del() if you have the URL.
-
       await client.query("DELETE FROM galleries WHERE id = $1", [id]);
     } finally {
       client.release();

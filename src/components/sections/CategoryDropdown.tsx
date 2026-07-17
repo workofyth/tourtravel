@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Category } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface CategoryDropdownProps {
   categories: Category[];
@@ -12,18 +13,19 @@ interface CategoryDropdownProps {
 
 export function CategoryDropdown({ categories }: CategoryDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("nav");
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <Link 
-        href="/packages" 
+      <Link
+        href="/packages"
         className="flex items-center gap-1 transition-colors hover:text-white/80 py-4 text-white/90"
       >
-        Packages
+        {t("packages")}
         <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
       </Link>
 
@@ -41,7 +43,7 @@ export function CategoryDropdown({ categories }: CategoryDropdownProps) {
                 href="/packages"
                 className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-white/10 text-white font-semibold border-b border-white/10 mb-1"
               >
-                All Packages
+                {t("allPackages")}
               </Link>
               {categories.map((category) => (
                 <Link
@@ -57,7 +59,7 @@ export function CategoryDropdown({ categories }: CategoryDropdownProps) {
                 href="/transportation"
                 className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-white/10 text-white font-semibold"
               >
-                Transportation
+                {t("transportation")}
               </Link>
             </div>
           </motion.div>

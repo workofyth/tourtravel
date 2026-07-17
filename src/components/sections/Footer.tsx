@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, MapPin } from "lucide-react";
 import { getSiteSettings } from "@/lib/queries/settings";
+import { getTranslations, getLocale } from "next-intl/server";
 
 export async function Footer() {
-  const settings = await getSiteSettings();
+  const locale = await getLocale();
+  const settings = await getSiteSettings(locale);
+  const t = await getTranslations("footer");
 
   return (
     <footer className="bg-[#001C44] text-white">
@@ -18,7 +21,7 @@ export async function Footer() {
               )}
             </h3>
             <p className="text-white/70 text-sm">
-              {settings?.address || "Providing unforgettable holiday experiences with premium service and affordable prices."}
+              {settings?.address || t("address")}
             </p>
             {(settings?.email || settings?.phone) && (
               <div className="text-sm text-white/70 space-y-1">
@@ -28,24 +31,24 @@ export async function Footer() {
             )}
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Navigation</h4>
+            <h4 className="font-semibold mb-4">{t("navigation")}</h4>
             <ul className="space-y-2 text-sm text-white/70">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li><Link href="/packages" className="hover:text-white transition-colors">Tour Packages</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t("tourPackages")}</Link></li>
+              <li><Link href="/packages" className="hover:text-white transition-colors">{t("navigation")}</Link></li>
               <li><Link href="/why-us" className="hover:text-white transition-colors">Why Us</Link></li>
               <li><Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Popular Categories</h4>
+            <h4 className="font-semibold mb-4">{t("popularCategories")}</h4>
             <ul className="space-y-2 text-sm text-white/70">
-              <li><Link href="/packages?category=daytrip" className="hover:text-white transition-colors">Daytrip</Link></li>
-              <li><Link href="/packages?category=staycation" className="hover:text-white transition-colors">Staycation</Link></li>
-              <li><Link href="/packages?category=transportation" className="hover:text-white transition-colors">Transportation</Link></li>
+              <li><Link href="/packages?category=daytrip" className="hover:text-white transition-colors">{t("daytrip")}</Link></li>
+              <li><Link href="/packages?category=staycation" className="hover:text-white transition-colors">{t("staycation")}</Link></li>
+              <li><Link href="/packages?category=transportation" className="hover:text-white transition-colors">{t("tourPackages")}</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Follow Us</h4>
+            <h4 className="font-semibold mb-4">{t("followUs")}</h4>
             <div className="flex space-x-4">
               {settings?.facebook_url ? (
                 <Link href={settings.facebook_url} target="_blank" className="text-white/70 hover:text-white transition-colors"><Facebook className="h-5 w-5" /></Link>
@@ -66,7 +69,7 @@ export async function Footer() {
           </div>
         </div>
         <div className="mt-12 pt-8 border-t border-white/10 text-center text-sm text-white/50">
-          © {new Date().getFullYear()} {settings?.site_name || "TourPlatform"}. All rights reserved.
+          &copy; {new Date().getFullYear()} {settings?.site_name || "TourPlatform"}. {t("allRightsReserved")}
         </div>
       </div>
     </footer>

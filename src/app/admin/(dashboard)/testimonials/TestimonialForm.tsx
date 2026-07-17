@@ -7,10 +7,8 @@ import { createTestimonial, updateTestimonial } from "@/lib/actions/testimonials
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Save, Loader2, ArrowLeft, CheckCircle, XCircle } from "lucide-react";
-import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Editor } from "@/components/ui/editor";
+import { Save, Loader2, ArrowLeft } from "lucide-react";
 
 interface Props {
   testimonial?: Testimonial | null;
@@ -20,6 +18,8 @@ export default function TestimonialForm({ testimonial }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [content, setContent] = useState(testimonial?.content || "");
+  const [contentEs, setContentEs] = useState(testimonial?.content_es || "");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +27,10 @@ export default function TestimonialForm({ testimonial }: Props) {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const result = testimonial 
+    formData.set("content", content);
+    if (contentEs) formData.set("content_es", contentEs);
+
+    const result = testimonial
       ? await updateTestimonial(testimonial.id, formData)
       : await createTestimonial(formData);
 
@@ -62,7 +65,7 @@ export default function TestimonialForm({ testimonial }: Props) {
           <Label htmlFor="name">Author Name <span className="text-red-500">*</span></Label>
           <Input id="name" name="name" defaultValue={testimonial?.name || ""} required />
         </div>
-        
+
         <div className="grid gap-2">
           <Label htmlFor="role">Role/Job/Origin (Optional)</Label>
           <Input id="role" name="role" defaultValue={testimonial?.role || ""} placeholder="Example: Traveler from London" />
@@ -70,26 +73,32 @@ export default function TestimonialForm({ testimonial }: Props) {
 
         <div className="grid gap-2">
           <Label htmlFor="content">Testimonial Content <span className="text-red-500">*</span></Label>
-          <Textarea 
-            id="content" 
-            name="content" 
-            rows={4} 
-            defaultValue={testimonial?.content || ""} 
-            required 
-          />
+          <Editor value={content} onChange={setContent} placeholder="Write testimonial..." />
         </div>
+
+        <details className="border rounded-lg p-4 bg-muted/20">
+          <summary className="cursor-pointer text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors select-none">
+            Spanish Translation
+          </summary>
+          <div className="mt-4 space-y-4">
+            <div className="grid gap-2">
+              <Label htmlFor="content_es">Content (Español)</Label>
+              <Editor value={contentEs} onChange={setContentEs} placeholder="Contenido del testimonio en español..." />
+            </div>
+          </div>
+        </details>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="grid gap-2">
             <Label htmlFor="rating">Rating (1-5)</Label>
-            <Input 
-              id="rating" 
-              name="rating" 
-              type="number" 
-              min={1} 
-              max={5} 
-              defaultValue={testimonial?.rating || 5} 
-              required 
+            <Input
+              id="rating"
+              name="rating"
+              type="number"
+              min={1}
+              max={5}
+              defaultValue={testimonial?.rating || 5}
+              required
             />
           </div>
           <div className="grid gap-2">
@@ -103,10 +112,10 @@ export default function TestimonialForm({ testimonial }: Props) {
         </div>
 
         <div className="flex items-center space-x-2 bg-muted/30 p-4 rounded-md border border-dashed">
-          <input 
-            type="checkbox" 
-            id="is_active" 
-            name="is_active" 
+          <input
+            type="checkbox"
+            id="is_active"
+            name="is_active"
             value="true"
             defaultChecked={testimonial ? testimonial.is_active : true}
             className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"

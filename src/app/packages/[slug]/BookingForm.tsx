@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
 import { CalendarIcon, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -32,8 +33,9 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function BookingForm({ packageId, title, price }: { packageId: string; title: string; price: number }) {
+export default function BookingForm({ packageId, title }: { packageId: string; title: string }) {
   const [isPending, setIsPending] = useState(false);
+  const t = useTranslations("packageDetail");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -76,21 +78,21 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
   return (
     <Card className="shadow-lg border-primary/20 bg-background/95 backdrop-blur">
       <CardHeader>
-        <CardTitle className="text-2xl">Book Package</CardTitle>
+        <CardTitle className="text-2xl">{t("bookPackage")}</CardTitle>
         <CardDescription>
-          Starting from <span className="font-bold text-primary">RM {Number(price)}</span> / pax
+          {t("startingFrom")} <span className="font-bold text-primary">{t("perPax")}</span>
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            
+
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>{t("fullName")}</FormLabel>
                   <FormControl>
                     <Input placeholder="John Doe" {...field} />
                   </FormControl>
@@ -105,7 +107,7 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t("email")}</FormLabel>
                     <FormControl>
                       <Input type="email" placeholder="john@example.com" {...field} />
                     </FormControl>
@@ -118,7 +120,7 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone/WA Number</FormLabel>
+                    <FormLabel>{t("phone")}</FormLabel>
                     <FormControl>
                       <Input placeholder="+62..." {...field} />
                     </FormControl>
@@ -133,7 +135,7 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
               name="travel_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Travel Date</FormLabel>
+                  <FormLabel>{t("travelDate")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input type="date" {...field} className="pl-10" />
@@ -150,12 +152,12 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
               name="pax"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Number of Participants</FormLabel>
+                  <FormLabel>{t("participants")}</FormLabel>
                   <FormControl>
-                    <Input 
-                      type="number" 
-                      min="1" 
-                      {...field} 
+                    <Input
+                      type="number"
+                      min="1"
+                      {...field}
                       onChange={(e) => field.onChange(parseInt(e.target.value))}
                     />
                   </FormControl>
@@ -169,12 +171,12 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Special Notes (Optional)</FormLabel>
+                  <FormLabel>{t("specialNotes")}</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="Special dietary requirements, seating preferences, etc..." 
+                    <Textarea
+                      placeholder={t("notesPlaceholder")}
                       className="resize-none"
-                      {...field} 
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -187,15 +189,15 @@ export default function BookingForm({ packageId, title, price }: { packageId: st
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Processing...
+                    {t("processing")}
                   </>
                 ) : (
-                  "Confirm Booking"
+                  t("confirmBooking")
                 )}
               </Button>
             </div>
             <p className="text-xs text-center text-muted-foreground mt-4">
-              We will contact you for further payment processing.
+              {t("bookingNote")}
             </p>
           </form>
         </Form>

@@ -1,0 +1,198 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "packages": "Paquetes",
+    "gallery": "Galería",
+    "whyUs": "Por Qué Nosotros",
+    "services": "Servicios",
+    "tourPackages": "Paquetes Turísticos",
+    "allPackages": "Todos los Paquetes",
+    "transportation": "Transporte",
+    "searchPackages": "Buscar Paquetes",
+    "contactViaWhatsapp": "Contactar por WhatsApp",
+    "transportService": "Servicio de Transporte",
+    "travelPackages": "Paquetes de Viaje"
+  },
+  "hero": {
+    "learnMore": "Más Información",
+    "contactUs": "Contáctenos",
+    "defaultSubtitle": "TU VIAJE COMIENZA AQUÍ",
+    "defaultTitle": "EXPLORA EL MUNDO"
+  },
+  "featuredPackages": {
+    "title": "Paquetes Populares",
+    "subtitle": "Nuestra mejor selección de paquetes vacacionales más reservados",
+    "popular": "Popular",
+    "days": "Días",
+    "startingFrom": "Desde",
+    "details": "Detalles",
+    "viewAll": "Ver Todos los Paquetes"
+  },
+  "highlights": {
+    "title": "¿Por Qué Viajar Con Hola Amigos?",
+    "items": [
+      {
+        "title": "AGENCIA DE VIAJES CONFIABLE EN MALASIA",
+        "description": "Con más de 6 años de experiencia gestionando paquetes turísticos a Kuala Lumpur, Malaca y Selangor, Hola Amigos Travel es su agencia de viajes más confiable para un viaje inolvidable a Malasia."
+      },
+      {
+        "title": "PAQUETES TURÍSTICOS ATRACTIVOS PARA TODOS",
+        "description": "Ya sea que viaje solo o en grupo (corporativo, familiar o amigos), somos su agencia de viajes preferida. También recibimos clientes corporativos y gubernamentales."
+      },
+      {
+        "title": "GUÍAS TURÍSTICOS EXPERIMENTADOS Y AMABLES",
+        "description": "Disfrute su viaje a Malasia con nuestros experimentados guías locales. Permítanos guiarlo a las atracciones, sitios históricos, puestos de comida, destinos de compras y mucho más. Su satisfacción es nuestra prioridad."
+      },
+      {
+        "title": "PAQUETES DE VIAJE FASCINANTES",
+        "description": "Elija entre nuestros emocionantes paquetes adaptados a sus preferencias. Desde ciudades hasta islas y montañas, con muchas actividades para disfrutar, le llevaremos lo mejor de Malasia."
+      },
+      {
+        "title": "SERVICIOS CONFIABLES DE ALQUILER DE AUTOS",
+        "description": "Reserve su auto a través de nuestro servicio de alquiler. Puede elegir conducir usted mismo o usar nuestros conductores experimentados como asistentes de viaje."
+      }
+    ]
+  },
+  "ourServices": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Experimente servicios de viaje premium con Hola Amigos para sus mejores vacaciones",
+    "customizedTour": "Paquete Turístico Personalizado",
+    "customizedTourDesc": "Ofrecemos paquetes turísticos personalizados según sus necesidades y preferencias de viaje específicas.",
+    "privateTransport": "Servicio de Transporte Privado",
+    "privateTransportDesc": "Vehículos privados seguros y cómodos con conductores profesionales para su viaje por Malasia.",
+    "hotelArrangements": "Arreglos de Hotel",
+    "hotelArrangementsDesc": "Selecciones de alojamiento de calidad para garantizar que su estancia sea cómoda y bien ubicada.",
+    "multilingualGuide": "Guía Turístico en Varios Idiomas",
+    "multilingualGuideDesc": "Disfrute del viaje con nuestros guías turísticos profesionales que hablan varios idiomas para una orientación más cómoda."
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "Experiencias vacacionales memorables compartidas por nuestros clientes"
+  },
+  "whyUs": {
+    "sectionTitle": "Por Qué Elegirnos",
+    "heading": "Por Qué Elegir Hola Amigos",
+    "description": "Estamos orgullosos de presentar a los viajeros la belleza de Malasia – Verdaderamente Asia. Con más de {years} años de experiencia en la industria turística, nos especializamos en proporcionar transporte cómodo, servicios turísticos profesionales y experiencias de viaje inolvidables en Malasia.",
+    "sideDescription": "Ya sea que viaje en pareja, familia o grupo, nuestro equipo está listo para ayudarle a explorar la belleza, cultura e historia de Malasia.",
+    "sideDescription2": "Desde ciudades modernas hasta patrimonio histórico y atracciones naturales, garantizamos que cada viaje sea seguro, agradable y memorable.",
+    "quote": "\"Proporcionamos más que un viaje, proporcionamos recuerdos que duran toda la vida.\"",
+    "highlights": [
+      "25 Años de Experiencia Turística",
+      "Servicio de Viajes Local Confiable",
+      "Transporte Privado Cómodo",
+      "Guías Profesionales y Amables",
+      "Arreglos de Viaje Flexibles",
+      "Reserva Fácil por WhatsApp"
+    ]
+  },
+  "footer": {
+    "address": "Proporcionando experiencias vacacionales inolvidables con servicio premium y precios asequibles.",
+    "navigation": "Navegación",
+    "popularCategories": "Categorías Populares",
+    "followUs": "Síganos",
+    "allRightsReserved": "Todos los derechos reservados.",
+    "daytrip": "Excursión",
+    "staycation": "Estadía",
+    "tourPackages": "Paquetes Turísticos"
+  },
+  "packages": {
+    "title": "Categorías y Paquetes Turísticos",
+    "subtitle": "Descubra una amplia selección de emocionantes paquetes turísticos que hemos preparado para usted.",
+    "noPackages": "No se Encontraron Paquetes",
+    "noPackagesDesc": "Lo sentimos, ningún paquete coincide con sus filtros. Intente con otros criterios o reinicie.",
+    "resetFilters": "Reiniciar Filtros",
+    "popular": "Popular",
+    "days": "Días",
+    "startingFrom": "Desde",
+    "details": "Detalles",
+    "keyword": "Palabra Clave",
+    "whereToGo": "¿A dónde ir?",
+    "category": "Categoría",
+    "allCategories": "Todas las Categorías",
+    "maxBudget": "Presupuesto Máx. (RM)",
+    "search": "Buscar",
+    "reset": "Reiniciar",
+    "personalized": "Experiencia Personalizada",
+    "customizeTitle": "O Personalice Su Propio Paquete Turístico",
+    "customizeDesc": "En Hola Amigos Malaysia Tour & Transport, entendemos que cada viajero tiene planes diferentes. Por eso ofrecemos paquetes turísticos personalizados según sus preferencias.",
+    "youCanChoose": "Qué Puede Elegir:",
+    "chooseItems": ["Su propio itinerario", "Destinos preferidos", "Categoría de hotel", "Presupuesto de viaje"],
+    "customizeQuote": "\"Nuestro equipo organizará todo para que disfrute de unas vacaciones tranquilas e inolvidables en Malasia.\"",
+    "contactTeam": "Contactar a Nuestro Equipo",
+    "availableDaily": "Disponible diariamente para consultas"
+  },
+  "packageDetail": {
+    "popularPackage": "Paquete Popular",
+    "dayTrip": "Viaje de Un Día",
+    "tripDescription": "Descripción del Viaje",
+    "itinerary": "Itinerario",
+    "bookPackage": "Reservar Paquete",
+    "startingFrom": "Desde",
+    "perPax": "/ persona",
+    "fullName": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono/WhatsApp",
+    "travelDate": "Fecha de Viaje",
+    "participants": "Número de Participantes",
+    "specialNotes": "Notas Especiales (Opcional)",
+    "notesPlaceholder": "Requisitos dietéticos especiales, preferencias de asiento, etc...",
+    "confirmBooking": "Confirmar Reserva",
+    "processing": "Procesando...",
+    "bookingNote": "Le contactaremos para el procesamiento del pago."
+  },
+  "gallery": {
+    "title": "Galería de Vacaciones",
+    "subtitle": "Eche un vistazo a los hermosos momentos de los viajes de nuestros clientes con Hola Amigos.",
+    "empty": "No hay fotos en la galería todavía."
+  },
+  "whyUsPage": {
+    "heroTitle": "¿Por Qué Viajar Con Hola Amigos?",
+    "heroDesc": "Descubra por qué miles de viajeros confían en nosotros para sus aventuras en Malasia durante más de dos décadas.",
+    "legacyLabel": "Nuestro Legado",
+    "legacyHeading": "Un Cuarto de Siglo de Excelencia",
+    "legacyDesc": "Estamos orgullosos de presentar a los viajeros la belleza de Malasia – Verdaderamente Asia. Con más de 25 años de experiencia en la industria turística, nos especializamos en proporcionar transporte cómodo, servicios turísticos profesionales y experiencias de viaje inolvidables en Malasia.",
+    "legacyDesc2": "Ya sea que viaje en pareja, familia o grupo, nuestro equipo está listo para ayudarle a explorar la belleza, cultura e historia de Malasia. Desde ciudades modernas hasta patrimonio histórico y atracciones naturales, garantizamos que cada viaje sea seguro, agradable y memorable.",
+    "features": [
+      { "title": "Más de 25 Años de Experiencia", "description": "Nuestra larga presencia en la industria asegura que conocemos cada rincón de Malasia y cómo proporcionar el mejor servicio." },
+      { "title": "Servicio Local Confiable", "description": "Como expertos locales, ofrecemos experiencias auténticas que las agencias internacionales podrían pasar por alto." },
+      { "title": "Privado y Cómodo", "description": "Todos nuestros tours utilizan transporte privado para garantizar su comodidad y seguridad durante todo el viaje." },
+      { "title": "Planificación Flexible", "description": "¿Quiere cambiar el itinerario? No hay problema. Ofrecemos arreglos de viaje flexibles adaptados a sus necesidades." }
+    ],
+    "ctaTitle": "¿Listo para Planificar Su Viaje Perfecto?",
+    "ctaDesc": "Únase a nosotros para un viaje inolvidable por los tesoros escondidos y lugares emblemáticos de Malasia.",
+    "browsePackages": "Ver Nuestros Paquetes",
+    "talkToExpert": "Hablar con un Experto"
+  },
+  "transportation": {
+    "premiumBadge": "Experiencia de Viaje Premium",
+    "heroTitle": "Transporte Sin Problemas Para Su Viaje",
+    "heroDesc": "Viaje con comodidad y estilo con nuestra diversa flota de vehículos bien mantenidos, adaptados a cada tamaño de grupo y destino.",
+    "bookViaWhatsapp": "Reservar por WhatsApp",
+    "viewPricing": "Ver Precios",
+    "fleetTitle": "Una Flota Construida Para Cada Grupo",
+    "fleetDesc": "Ofrecemos una gama de opciones de vehículos para garantizar que tenga el viaje perfecto. Ya sea una familia pequeña o un grupo corporativo grande, tenemos lo que necesita.",
+    "capacity": "Capacidad",
+    "note": "Nota: Todos nuestros vehículos tienen aire acondicionado, mantenimiento regular y conductores experimentados que conocen las mejores rutas a su destino.",
+    "driverQuote": "\"Su seguridad y comodidad son nuestras prioridades. Nuestros conductores profesionales están listos para llevarlo a cualquier parte.\"",
+    "pricingTitle": "Precios Simples y Transparentes",
+    "pricingDesc": "Tarifas competitivas calculadas por persona según el tamaño de su grupo. Todos los precios incluyen conductor, combustible y peajes.",
+    "groupSize": "Tamaño del Grupo",
+    "pricePerPerson": "Precio por Persona",
+    "perPax": "por persona",
+    "customQuote": "¿Necesita un presupuesto personalizado para un grupo más grande o un itinerario específico?",
+    "getCustomQuote": "Obtener Presupuesto",
+    "benefit1Title": "Seguro y Confiable",
+    "benefit1Desc": "Todos los vehículos están completamente asegurados y pasan inspecciones de seguridad rigurosas regularmente.",
+    "benefit2Title": "Experiencia Local",
+    "benefit2Desc": "Nuestros conductores son locales que conocen los tesoros escondidos y las rutas más eficientes.",
+    "benefit3Title": "Flota Moderna",
+    "benefit3Desc": "Disfrute de amenities modernas y asientos cómodos en nuestros vehículos con aire acondicionado."
+  },
+  "common": {
+    "loading": "Cargando..."
+  },
+  "language": {
+    "en": "English",
+    "es": "Español"
+  }
+}
