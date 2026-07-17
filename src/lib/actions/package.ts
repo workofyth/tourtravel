@@ -9,12 +9,10 @@ import { put } from "@vercel/blob";
 const packageSchema = z.object({
   category_id: z.string().min(1),
   title: z.string().min(3, "Title must be at least 3 characters"),
-  title_en: z.string().optional(),
-  title_es: z.string().optional(),
+  title_es: z.string().nullable().optional(),
   slug: z.string().min(3, "Slug must be at least 3 characters"),
   description: z.string().min(10, "Description must be at least 10 characters"),
-  description_en: z.string().optional(),
-  description_es: z.string().optional(),
+  description_es: z.string().nullable().optional(),
   is_featured: z.boolean().default(false),
 });
 
@@ -42,11 +40,9 @@ export async function createPackage(formData: FormData) {
     const rawData = {
       category_id: formData.get("category_id"),
       title: formData.get("title"),
-      title_en: formData.get("title_en") || null,
       title_es: formData.get("title_es") || null,
       slug: formData.get("slug"),
       description: formData.get("description"),
-      description_en: formData.get("description_en") || null,
       description_es: formData.get("description_es") || null,
       is_featured: formData.get("is_featured") === "true",
     };
@@ -66,17 +62,15 @@ export async function createPackage(formData: FormData) {
     const coverImage = uploadedFilenames[0] || "default.jpg";
 
     const result = await pool.query(
-      `INSERT INTO packages (category_id, title, title_en, title_es, slug, description, description_en, description_es, cover_image, is_featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      `INSERT INTO packages (category_id, title, title_es, slug, description, description_es, cover_image, is_featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING id`,
       [
         validatedData.category_id,
         validatedData.title,
-        validatedData.title_en,
         validatedData.title_es,
         validatedData.slug,
         validatedData.description,
-        validatedData.description_en,
         validatedData.description_es,
         coverImage,
         validatedData.is_featured,
@@ -97,9 +91,9 @@ export async function createPackage(formData: FormData) {
     if (itineraries.length > 0) {
       for (const item of itineraries) {
         await pool.query(
-          `INSERT INTO itineraries (package_id, day_number, title, title_en, title_es, description, description_en, description_es)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-          [packageId, item.day_number, item.title, item.title_en || null, item.title_es || null, item.description, item.description_en || null, item.description_es || null]
+          `INSERT INTO itineraries (package_id, day_number, title, title_es, description, description_es)
+           VALUES ($1, $2, $3, $4, $5, $6)`,
+          [packageId, item.day_number, item.title, item.title_es || null, item.description, item.description_es || null]
         );
       }
     }
@@ -120,11 +114,9 @@ export async function updatePackage(id: string, formData: FormData) {
     const rawData = {
       category_id: formData.get("category_id"),
       title: formData.get("title"),
-      title_en: formData.get("title_en") || null,
       title_es: formData.get("title_es") || null,
       slug: formData.get("slug"),
       description: formData.get("description"),
-      description_en: formData.get("description_en") || null,
       description_es: formData.get("description_es") || null,
       is_featured: formData.get("is_featured") === "true",
     };
@@ -149,16 +141,14 @@ export async function updatePackage(id: string, formData: FormData) {
 
     await pool.query(
       `UPDATE packages
-       SET category_id = $1, title = $2, title_en = $3, title_es = $4, slug = $5, description = $6, description_en = $7, description_es = $8, is_featured = $9, cover_image = $10
-       WHERE id = $11`,
+       SET category_id = $1, title = $2, title_es = $3, slug = $4, description = $5, description_es = $6, is_featured = $7, cover_image = $8
+       WHERE id = $9`,
       [
         validatedData.category_id,
         validatedData.title,
-        validatedData.title_en,
         validatedData.title_es,
         validatedData.slug,
         validatedData.description,
-        validatedData.description_en,
         validatedData.description_es,
         validatedData.is_featured,
         coverImage,
@@ -179,9 +169,9 @@ export async function updatePackage(id: string, formData: FormData) {
     if (itineraries.length > 0) {
       for (const item of itineraries) {
         await pool.query(
-          `INSERT INTO itineraries (package_id, day_number, title, title_en, title_es, description, description_en, description_es)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-          [id, item.day_number, item.title, item.title_en || null, item.title_es || null, item.description, item.description_en || null, item.description_es || null]
+          `INSERT INTO itineraries (package_id, day_number, title, title_es, description, description_es)
+           VALUES ($1, $2, $3, $4, $5, $6)`,
+          [id, item.day_number, item.title, item.title_es || null, item.description, item.description_es || null]
         );
       }
     }
