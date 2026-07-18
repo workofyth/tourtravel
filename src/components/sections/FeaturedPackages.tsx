@@ -57,7 +57,7 @@ export async function FeaturedPackages() {
                 </div>
                 <h3 className="text-xl font-bold line-clamp-2 leading-tight">
                   <Link href={`/packages/${pkg.slug}`} className="hover:text-primary transition-colors">
-                    {pkg.title}
+                    {pkg.title.slice(0, 50)}
                   </Link>
                 </h3>
                 {pkg.itineraries && pkg.itineraries.length > 0 && (
@@ -82,11 +82,15 @@ export async function FeaturedPackages() {
               </CardHeader>
               <CardContent className="flex-1">
                 <p className="text-muted-foreground line-clamp-[10] whitespace-pre-line text-left">
-                  {pkg.description
-                    .replace(/<\/p>|<\/div>|<\/li>|<\/h1>|<\/h2>|<br\s*\/?>/gi, "\n")
-                    .replace(/<[^>]*>?/gm, " ")
-                    .replace(/\n\s*\n/g, "\n")
-                    .trim()}
+                  {(() => {
+                    const t = pkg.description
+                      .replace(/&nbsp;/g, " ")
+                      .replace(/<\/p>|<\/div>|<\/li>|<\/h1>|<\/h2>|<br\s*\/?>/gi, "\n")
+                      .replace(/<[^>]*>?/gm, " ")
+                      .replace(/\n\s*\n/g, "\n")
+                      .trim();
+                    return t.length > 500 ? t.slice(0, 500) + "..." : t;
+                  })()}
                 </p>
               </CardContent>
               <CardFooter className="border-t border-muted pt-6 mt-auto">
