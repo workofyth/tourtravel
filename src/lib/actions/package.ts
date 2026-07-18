@@ -11,7 +11,7 @@ const packageSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   title_es: z.string().nullable().optional(),
   slug: z.string().min(3, "Slug must be at least 3 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  description: z.string().refine(val => val.replace(/<[^>]*>/g, '').trim().length >= 10, "Description must be at least 10 characters"),
   description_es: z.string().nullable().optional(),
   is_featured: z.boolean().default(false),
 });

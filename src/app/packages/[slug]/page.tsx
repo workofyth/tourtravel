@@ -26,7 +26,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 }
 
 function stripHtml(html: string) {
-  return html.replace(/<[^>]*>?/gm, '');
+  return html.replace(/&nbsp;/g, ' ').replace(/<[^>]*>?/gm, '');
 }
 
 export default async function PackageDetailPage(props: { params: Promise<{ slug: string }> }) {
@@ -71,7 +71,7 @@ export default async function PackageDetailPage(props: { params: Promise<{ slug:
               <h3 className="text-xl font-semibold mb-3">{t("tripDescription")}</h3>
               <div
                 className="text-left w-full"
-                dangerouslySetInnerHTML={{ __html: pkg.description }}
+                dangerouslySetInnerHTML={{ __html: pkg.description?.replace(/&nbsp;/g, " ") }}
               />
             </div>
 
@@ -96,7 +96,7 @@ export default async function PackageDetailPage(props: { params: Promise<{ slug:
                           className="prose prose-slate prose-sm max-w-none dark:prose-invert itinerary-content text-left
                             [&_p]:mb-2 [&_p]:min-h-[1em]
                             [&_div]:mb-2 [&_div]:min-h-[1em]"
-                          dangerouslySetInnerHTML={{ __html: iti.description }}
+                          dangerouslySetInnerHTML={{ __html: iti.description?.replace(/&nbsp;/g, " ") }}
                         />
                       </div>
                     </div>

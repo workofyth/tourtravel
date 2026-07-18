@@ -33,7 +33,7 @@ const packageFormSchema = z.object({
   title_es: z.string().optional(),
   slug: z.string().min(3, "Package slug must be at least 3 characters."),
 
-  description: z.string().min(10, "Description must be at least 10 characters."),
+  description: z.string().refine(val => val.replace(/<[^>]*>/g, '').trim().length >= 10, "Description must be at least 10 characters."),
   description_es: z.string().optional(),
   is_featured: z.boolean(),
   itineraries: z.array(z.object({
