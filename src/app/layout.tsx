@@ -16,8 +16,8 @@ export async function generateMetadata() {
   const settings = await getSiteSettings();
   const siteName = settings?.site_name || "TourPlatform";
   return {
-    title: `${siteName} - Liburan Impian Anda`,
-    description: "Platform pemesanan paket tour terbaik di Indonesia",
+    title: `${siteName}`,
+    description: "Hola Amigos Travel & Tours – Trusted Travel Agent in Kuala Lumpur",
   };
 }
 
