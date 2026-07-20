@@ -34,17 +34,22 @@ export function HeroSection({ packages = [] }: HeroSectionProps) {
 
   const activeSlides = packages.length > 0
     ? packages.slice(0, 5).map(pkg => {
-        const imageUrl = pkg.cover_image
-          ? getImageUrl(pkg.cover_image, 'packages')
-          : (pkg.images && pkg.images.length > 0 ? getImageUrl(pkg.images[0].image_url, 'packages') : "/BANNER.jpg");
+      const imageUrl = pkg.cover_image
+        ? getImageUrl(pkg.cover_image, 'packages')
+        : (pkg.images && pkg.images.length > 0 ? getImageUrl(pkg.images[0].image_url, 'packages') : "/BANNER.jpg");
 
-        return {
-          image: imageUrl,
-          title: pkg.title?.toUpperCase() || "UNTITLED PACKAGE",
-          subtitle: pkg.category_name?.toUpperCase() || "TOUR PACKAGE",
-          link: `/packages/${pkg.slug}`
-        };
-      })
+      const titleUpper = pkg.title?.toUpperCase() || "UNTITLED PACKAGE";
+      const titleMatch = titleUpper.match(/^(.+?)\s*\((.+)\)$/);
+      const titleMain = titleMatch ? titleMatch[1] : titleUpper;
+      const titleDuration = titleMatch ? `(${titleMatch[2]})` : "";
+
+      return {
+        image: imageUrl,
+        title: titleMain,
+        subtitle: titleDuration ? `${titleDuration}` : (pkg.category_name?.toUpperCase() || "TOUR PACKAGE"),
+        link: `/packages/${pkg.slug}`
+      };
+    })
     : defaultSlides;
 
   useEffect(() => {
@@ -97,14 +102,16 @@ export function HeroSection({ packages = [] }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-5xl"
+            className="max-w-6xl"
           >
-            <h2 className="font-roboto-slab text-white text-xl md:text-3xl font-bold mb-4 tracking-wide uppercase drop-shadow-lg">
-              {activeSlides[currentSlide].subtitle}
-            </h2>
-            <h1 className="font-roboto text-white text-4xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tighter drop-shadow-2xl">
+
+
+            <h1 className="font-roboto text-white text-2xl md:text-5xl lg:text-6xl font-black mb-0 leading-tight tracking-tighter drop-shadow-2xl px-0">
               {activeSlides[currentSlide].title}
             </h1>
+            <h2 className="font-roboto-slab text-white text-base md:text-xl font-bold mb-6 tracking-wide uppercase drop-shadow-lg ">
+              {activeSlides[currentSlide].subtitle}
+            </h2>
 
             <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
               <Link href={activeSlides[currentSlide].link}>
@@ -133,9 +140,8 @@ export function HeroSection({ packages = [] }: HeroSectionProps) {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-1.5 transition-all duration-500 ${
-                currentSlide === index ? "w-12 bg-white" : "w-6 bg-white/40"
-              }`}
+              className={`h-1.5 transition-all duration-500 ${currentSlide === index ? "w-12 bg-white" : "w-6 bg-white/40"
+                }`}
             />
           ))}
         </div>
