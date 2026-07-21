@@ -13,11 +13,19 @@ interface HeroSectionProps {
   packages?: PackageWithCategory[];
 }
 
+interface Slide {
+  image: string;
+  title: string;
+  subtitle: string;
+  link: string;
+  hideContent?: boolean;
+}
+
 export function HeroSection({ packages = [] }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const t = useTranslations("hero");
 
-  const staticSlides = [
+  const staticSlides: Slide[] = [
     // {
     //   image: "/BANNER.jpg",
     //   title: t("defaultTitle"),
@@ -33,7 +41,7 @@ export function HeroSection({ packages = [] }: HeroSectionProps) {
     }
   ];
 
-  const defaultSlides = [
+  const defaultSlides: Slide[] = [
     ...staticSlides,
     {
       image: "/customized package.jpg",
@@ -43,9 +51,9 @@ export function HeroSection({ packages = [] }: HeroSectionProps) {
     }
   ];
 
-  const activeSlides = packages.length > 0
+  const activeSlides: Slide[] = packages.length > 0
     ? [
-      ...packages.slice(0, 4).map(pkg => {
+      ...packages.slice(0, 4).map((pkg): Slide => {
         const imageUrl = pkg.cover_image
           ? getImageUrl(pkg.cover_image, 'packages')
           : (pkg.images && pkg.images.length > 0 ? getImageUrl(pkg.images[0].image_url, 'packages') : "/BANNER.jpg");
