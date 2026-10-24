@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 
 import { Testimonial } from "@/types";
+import { stripHtml } from "@/lib/utils";
 
 interface Props {
   testimonials: Testimonial[];
@@ -55,7 +56,7 @@ export function Testimonials({ testimonials }: Props) {
                     ))}
                   </div>
                   <p className="italic text-lg text-muted-foreground mb-8">
-                    &ldquo;{col.content}&rdquo;
+                    &ldquo;{stripHtml(col.content)}&rdquo;
                   </p>
                   <div className="flex items-center gap-4">
                     {col.avatar_url ? (
