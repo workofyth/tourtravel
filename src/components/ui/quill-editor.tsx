@@ -30,8 +30,7 @@ export function Editor({ value, onChange, placeholder, className }: EditorProps)
   ];
 
   const handleChange = useCallback((content: string) => {
-    const clean = content.replace(/&nbsp;/g, " ");
-    onChange(clean === "<p><br></p>" ? "" : clean);
+    onChange(content === "<p><br></p>" ? "" : content);
   }, [onChange]);
 
   return (
