@@ -1,3 +1,4 @@
+import { stripHtml } from "@/lib/utils";
 import { getAllTestimonials } from "@/lib/queries/testimonials";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Plus, Edit } from "lucide-react";
@@ -50,7 +51,7 @@ export default async function TestimonialsPage() {
                 <TableRow key={d.id}>
                   <TableCell className="font-medium">{d.name}</TableCell>
                   <TableCell className="text-muted-foreground text-sm">{d.role || "-"}</TableCell>
-                  <TableCell className="truncate max-w-xs" title={d.content}>{d.content}</TableCell>
+                  <TableCell className="truncate max-w-xs" title={stripHtml(d.content)}>{stripHtml(d.content)}</TableCell>
                   <TableCell>{d.rating} / 5</TableCell>
                   <TableCell>
                     {d.is_active ? (
