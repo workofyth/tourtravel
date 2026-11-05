@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
     },
     proxyClientMaxBodySize: '50mb',
   },
+  async headers() {
+    return [
+      {
+        source: "/:icon(favicon.ico|icon.png|apple-icon.png|favicon.png)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

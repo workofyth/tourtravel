@@ -26,22 +26,23 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import { getImageUrl } from "@/lib/utils";
+import { PG_TEXT_MAX } from "@/lib/constants";
 
 const packageFormSchema = z.object({
   category_id: z.string().min(1, "Please select a category."),
-  title: z.string().min(3, "Package title must be at least 3 characters."),
-  title_es: z.string().optional(),
-  slug: z.string().min(3, "Package slug must be at least 3 characters."),
+  title: z.string().min(3, "Package title must be at least 3 characters.").max(PG_TEXT_MAX),
+  title_es: z.string().max(PG_TEXT_MAX).optional(),
+  slug: z.string().min(3, "Package slug must be at least 3 characters.").max(PG_TEXT_MAX),
 
-  description: z.string().refine(val => val.replace(/<[^>]*>/g, '').trim().length >= 10, "Description must be at least 10 characters."),
-  description_es: z.string().optional(),
+  description: z.string().max(PG_TEXT_MAX).refine(val => val.replace(/<[^>]*>/g, '').trim().length >= 10, "Description must be at least 10 characters."),
+  description_es: z.string().max(PG_TEXT_MAX).optional(),
   is_featured: z.boolean(),
   itineraries: z.array(z.object({
     day_number: z.number(),
-    title: z.string().min(1, "Day title is required."),
-    title_es: z.string().optional(),
-    description: z.string().optional(),
-    description_es: z.string().optional(),
+    title: z.string().min(1, "Day title is required.").max(PG_TEXT_MAX),
+    title_es: z.string().max(PG_TEXT_MAX).optional(),
+    description: z.string().max(PG_TEXT_MAX).optional(),
+    description_es: z.string().max(PG_TEXT_MAX).optional(),
   })),
 });
 

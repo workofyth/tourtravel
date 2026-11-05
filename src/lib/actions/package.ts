@@ -5,14 +5,15 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import sharp from "sharp";
 import { put } from "@vercel/blob";
+import { PG_TEXT_MAX } from "@/lib/constants";
 
 const packageSchema = z.object({
   category_id: z.string().min(1),
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  title_es: z.string().nullable().optional(),
-  slug: z.string().min(3, "Slug must be at least 3 characters"),
-  description: z.string().refine(val => val.replace(/<[^>]*>/g, '').trim().length >= 10, "Description must be at least 10 characters"),
-  description_es: z.string().nullable().optional(),
+  title: z.string().min(3, "Title must be at least 3 characters").max(PG_TEXT_MAX),
+  title_es: z.string().max(PG_TEXT_MAX).nullable().optional(),
+  slug: z.string().min(3, "Slug must be at least 3 characters").max(PG_TEXT_MAX),
+  description: z.string().max(PG_TEXT_MAX).refine(val => val.replace(/<[^>]*>/g, '').trim().length >= 10, "Description must be at least 10 characters"),
+  description_es: z.string().max(PG_TEXT_MAX).nullable().optional(),
   is_featured: z.boolean().default(false),
 });
 
